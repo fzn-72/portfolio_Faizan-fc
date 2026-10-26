@@ -1,0 +1,35 @@
+.pitch-wrap { max-width: 1180px; margin: 0 auto; padding: 0 clamp(.75rem, 3vw, 2rem); }
+.pitch-label { display: flex; justify-content: space-between; gap: 1rem; color: var(--cream-dark); font-size: .62rem; letter-spacing: .16em; font-weight: 700; }
+.pitch-label--top { margin: 0 0 .7rem; }
+.pitch-label--bottom { margin: .7rem 0 0; }
+.pitch { position: relative; isolation: isolate; overflow: hidden; aspect-ratio: 1.72 / 1; min-height: 360px; border: 1px solid rgba(240,235,221,.55); border-radius: 3px; background: repeating-linear-gradient(90deg, #1e5038 0, #1e5038 12.5%, #214a35 12.5%, #214a35 25%); box-shadow: 0 20px 55px rgba(0,0,0,.25), inset 0 0 0 8px rgba(9,32,21,.12); }
+.pitch::before { content: ""; position: absolute; inset: 12px; border: 1px solid var(--line); pointer-events: none; }
+.pitch__markings { position: absolute; inset: 12px; pointer-events: none; }
+.pitch__halfway { position: absolute; top: 0; bottom: 0; left: 50%; border-left: 1px solid var(--line); }
+.pitch__circle { position: absolute; width: 19%; aspect-ratio: 1; left: 50%; top: 50%; transform: translate(-50%,-50%); border: 1px solid var(--line); border-radius: 50%; }
+.pitch__box { position: absolute; left: 28%; width: 44%; height: 16%; border: 1px solid var(--line); }
+.pitch__box--top { top: 0; border-top: 0; }
+.pitch__box--bottom { bottom: 0; border-bottom: 0; }
+.pitch__goal { position: absolute; left: 40%; width: 20%; height: 4%; border: 1px solid var(--line); }
+.pitch__goal--top { top: 0; border-top: 0; }
+.pitch__goal--bottom { bottom: 0; border-bottom: 0; }
+.players { position: absolute; inset: 5% 4%; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); grid-template-rows: 1fr 1fr; align-items: center; justify-items: center; gap: .4rem; }
+.player { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: .38rem; width: 100%; max-width: 125px; padding: .35rem .15rem; color: var(--cream); background: transparent; border: 0; cursor: pointer; transition: transform .2s ease; }
+.player:hover, .player:focus-visible { transform: translateY(-5px); outline: none; }
+.player:focus-visible .jersey { outline: 2px solid var(--cream); outline-offset: 4px; }
+.jersey { position: relative; display: grid; place-items: center; width: clamp(52px, 6.2vw, 78px); aspect-ratio: .92 / 1; color: var(--green-deep); font-weight: 900; font-size: clamp(.9rem, 1.7vw, 1.25rem); background: var(--cream); clip-path: polygon(25% 0, 38% 8%, 62% 8%, 75% 0, 100% 18%, 84% 39%, 75% 32%, 75% 100%, 25% 100%, 25% 32%, 16% 39%, 0 18%); filter: drop-shadow(0 6px 5px rgba(0,0,0,.2)); }
+.jersey::after { content: ""; position: absolute; top: 11%; width: 28%; height: 2px; background: var(--gold); }
+.player:nth-child(even) .jersey { background: #e5d7b7; }
+.player__name { max-width: 100%; overflow-wrap: anywhere; text-align: center; font-size: clamp(.58rem, .9vw, .75rem); line-height: 1.2; font-weight: 800; text-shadow: 0 1px 4px rgba(0,0,0,.35); }
+.player__type { color: #d5e1d5; font-size: .58rem; text-transform: uppercase; letter-spacing: .08em; }
+.player--livin { grid-column: 1; grid-row: 1; }
+.player--pictionary { grid-column: 2; grid-row: 1; }
+.player--21 { grid-column: 3; grid-row: 1; }
+.player--stock { grid-column: 4; grid-row: 1; }
+.player--future { opacity: .72; }
+.player--future .jersey { background: transparent; border: 1px dashed var(--gold); color: var(--gold); clip-path: none; border-radius: 12px 12px 18px 18px; }
+.player--future .jersey::after { display: none; }
+.player--future .player__name { color: var(--gold); }
+.ball { position: absolute; z-index: 5; left: 50%; top: 50%; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--cream); color: var(--green-deep); font-size: 8px; opacity: 0; box-shadow: 0 0 0 3px rgba(240,235,221,.2); pointer-events: none; }
+.ball.is-moving { opacity: 1; animation: pass-ball .55s ease-in-out both; }
+@keyframes pass-ball { 0% { transform: translate(-50%,-50%) scale(.7); } 50% { transform: translate(30px,-36px) scale(1.1); } 100% { transform: translate(0,0) scale(1); } }

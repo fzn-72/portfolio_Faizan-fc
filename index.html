@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#163d2b">
+  <meta name="description" content="Faizan FC — un portfolio Data & IA pensé comme un terrain de football.">
+  <title>Faizan FC — Data & IA</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/pitch.css">
+  <link rel="stylesheet" href="css/panels.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script src="js/projects.js" defer></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <header class="scoreboard">
+    <a class="club-mark" href="#terrain" aria-label="Faizan FC, accueil"><span class="club-mark__shield">FC</span><span>FAIZAN <b>FC</b></span></a>
+    <div class="scoreboard__center"><span class="eyebrow">PORTFOLIO · SAISON 2026/27</span><h1>Data & Intelligence Artificielle</h1></div>
+    <div class="scoreboard__status"><span class="status-dot"></span> ESILV · M1</div>
+  </header>
+
+  <main>
+    <section class="intro" aria-label="Présentation">
+      <div><p class="eyebrow">BIENVENUE AU STADE</p><h2>Mes projets.<br><em>Mon terrain de jeu.</em></h2></div>
+      <p class="intro__note">Sélectionne un maillot pour découvrir le projet, les technologies et le travail réalisé.</p>
+    </section>
+
+    <section class="pitch-wrap" id="terrain" aria-label="Terrain des projets">
+      <div class="pitch-label pitch-label--top"><span>FAIZAN FC</span><span>PROJETS SÉLECTIONNÉS</span></div>
+      <div class="pitch" id="pitch">
+        <div class="pitch__markings" aria-hidden="true">
+          <div class="pitch__halfway"></div><div class="pitch__circle"></div>
+          <div class="pitch__box pitch__box--top"></div><div class="pitch__box pitch__box--bottom"></div>
+          <div class="pitch__goal pitch__goal--top"></div><div class="pitch__goal pitch__goal--bottom"></div>
+        </div>
+        <div class="players" id="players" aria-label="Projets disponibles"></div>
+        <div class="ball" id="ball" aria-hidden="true">●</div>
+      </div>
+      <div class="pitch-label pitch-label--bottom"><span>4 PROJETS CONFIRMÉS</span><span>LES PROCHAINS MATCHS SE PRÉPARENT…</span></div>
+    </section>
+
+    <section class="project-panel" id="project-panel" hidden aria-live="polite" aria-labelledby="panel-title">
+      <div class="project-panel__top"><span class="eyebrow" id="panel-kicker">FICHE JOUEUR</span><button class="close-panel" id="close-panel" type="button">← Retour au terrain</button></div>
+      <div class="project-panel__content"><div class="project-number" id="panel-number">01</div><div><p class="eyebrow" id="panel-type">PROJET ACADÉMIQUE</p><h2 id="panel-title">Nom du projet</h2><p id="panel-description"></p><div class="tags" id="panel-tags"></div><p class="panel-note" id="panel-note"></p></div></div>
+    </section>
+  </main>
+
+  <footer><span>FAIZAN FC <span class="gold">●</span> DATA & IA</span><span>Un portfolio qui se construit projet après projet.</span></footer>
+</body>
+</html>
