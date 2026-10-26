@@ -1,41 +1,42 @@
-# Faizan FC — document de conception
+# Faizan FC — Portfolio Data & IA
 
-## Vision
-Un portfolio personnel Data & IA inspiré du football, original mais compréhensible pour un recruteur.
+## Direction artistique
+- Palette : vert stade `#163D2B`, blanc cassé `#F0EBDD`, or `#D7A84A`.
+- Interface hybride : terrain immersif + fiches de projets soignées inspirées des cartes de joueur de football.
+- Le terrain présente uniquement les projets ; les expériences et la formation ne constituent pas des lignes de joueurs.
+- Le gardien représente Faizan et initie la passe vers le projet sélectionné.
 
-## Identité visuelle
-- Vert stade : `#163D2B`
-- Blanc cassé : `#F0EBDD`
-- Or : `#D7A84A`
-- Direction artistique : hybride, terrain immersif et interface claire.
+## Parcours principal
+1. L'utilisateur choisit un maillot.
+2. Un ballon de football dessiné en SVG part des pieds du gardien et rejoint le joueur sélectionné.
+3. Une fiche grand format s'ouvre avec description, compétences, zone de captures et lien vers le projet lorsque le lien est confirmé.
+4. L'utilisateur ferme la fiche pour retrouver le terrain.
 
-## Terrain
-Le terrain représente uniquement les projets. Chaque maillot affiche le nom court du projet et un numéro lié au projet (à confirmer). La première version contient quatre projets confirmés et deux emplacements « À venir ».
+## Navigation secondaire
+- Bouton « Ma fiche joueur (CV) » : ouvre une carte de profil. Le PDF du CV sera relié quand sa version définitive sera choisie.
+- Bouton Contact : ouvre le LinkedIn du portfolio.
+- Bouton FR/EN : change la langue de l'interface. Les descriptions de projets disposent de versions françaises et anglaises provisoires.
 
-## Projets retenus
-1. Liv’In Paris — projet académique en groupe.
-2. Pictionary Game — projet réalisé à Dublin.
-3. Jeu du 21 — projet réalisé à Dublin.
-4. Stock Trade Market — projet réalisé à Dublin.
+## Projets actuellement affichés
+- Liv’In Paris — projet académique en groupe.
+- Pictionary Game — projet réalisé à Dublin.
+- Jeu du 21 — projet réalisé à Dublin.
+- Stock Trade Market — projet réalisé à Dublin.
 
-Les descriptions détaillées restent volontairement provisoires tant que les technologies et contributions exactes ne sont pas vérifiées.
+Les descriptions, technologies, numéros de maillot, captures et liens sont provisoires tant que les fichiers des projets n'ont pas été revus. Ne pas inventer de détails et distinguer le travail personnel du travail de groupe.
 
-## Interaction
-Cliquer sur un maillot ouvre une fiche projet. Une animation de ballon accompagne la sélection. Un bouton permet de revenir au terrain. Les emplacements futurs affichent une fiche « projet en préparation ».
-
-## Architecture technique
-- `index.html` : structure de la page.
-- `css/base.css` : couleurs, typographie et éléments généraux.
-- `css/pitch.css` : terrain et maillots.
-- `css/panels.css` : fiches projet.
-- `css/responsive.css` : adaptations mobile et réduction des animations.
-- `js/projects.js` : données des projets.
-- `js/main.js` : génération des maillots et interactions.
+## Structure des fichiers
+- `index.html` : structure de la page et modales.
+- `css/base.css` : styles globaux et navigation.
+- `css/pitch.css` : terrain, maillots, gardien et animation du ballon.
+- `css/panels.css` : fiche projet et fiche profil.
+- `css/responsive.css` : adaptation mobile/tablette.
+- `js/projects.js` : contenu éditable des projets.
+- `js/main.js` : interactions, animation, fiches et traduction FR/EN.
 
 ## Prochaines étapes
-1. Vérifier le rendu localement.
-2. Ajuster la composition et les dimensions du terrain.
-3. Confirmer les numéros des maillots.
-4. Compléter les descriptions et contributions individuelles.
-5. Tester clavier et mobile.
-6. Publier sur GitHub Pages seulement après validation.
+1. Tester les interactions et la mise en page sur ordinateur et mobile.
+2. Remplacer les placeholders par des captures authentiques.
+3. Vérifier les descriptions, technologies et contributions individuelles.
+4. Ajouter le vrai PDF de CV et les liens de projets validés.
+5. Créer le dépôt GitHub uniquement après validation locale.
