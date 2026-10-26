@@ -4,181 +4,422 @@ const ball = document.querySelector("#ball");
 const goalkeeper = document.querySelector("#goalkeeper");
 const projectBackdrop = document.querySelector("#project-backdrop");
 const profileBackdrop = document.querySelector("#profile-backdrop");
+const coachBackdrop = document.querySelector("#coach-backdrop");
+const infoBackdrop = document.querySelector("#info-backdrop");
+const arena = document.querySelector("#arena");
 let currentLanguage = "fr";
 let lastFocusedElement = null;
+let currentProject = null;
+let galleryIndex = 0;
+let ballPoint = null;
+let ballFrame = 0;
+let modalOpenTimer = 0;
+let activeModal = null;
 
 const translations = {
   fr: {
-    season: "PORTFOLIO · SAISON 2026/27", playerCard: "Ma fiche joueur (CV)", contact: "Contact", welcome: "BIENVENUE AU STADE",
-    headline: "Mes projets.<br><em>Mon terrain de jeu.</em>", instruction: "Choisis un projet. Depuis les pieds du gardien, le ballon part vers le joueur sélectionné et ouvre sa fiche.",
-    projectsLabel: "PROJETS SÉLECTIONNÉS", confirmed: "4 PROJETS À DÉCOUVRIR", futureLabel: "D'AUTRES PROJETS ARRIVENT…", keeper: "GARDIEN · MOI",
-    hint: "Clique sur un maillot pour recevoir la passe du gardien.", playerFile: "FICHE JOUEUR · RAPPORT DE MATCH", skillsTitle: "COMPÉTENCES MOBILISÉES", screensTitle: "CAPTURES DU PROJET",
-    openProject: "Voir le projet ↗", linkSoon: "Lien à ajouter après vérification", return: "Retour au terrain", playerCardKicker: "CARTE JOUEUR · PROFIL",
-    profileRole: "Data & IA · Étudiant ingénieur à l'ESILV", cvNote: "La version CV téléchargeable sera ajoutée ici quand le fichier final sera prêt.",
-    linkedin: "Voir mon LinkedIn ↗", footer: "Un portfolio qui se construit projet après projet.", shot: "Capture à ajouter", future: "À venir", futureDescription: "Un nouveau projet est en préparation. Ce maillot sera activé quand le projet sera prêt à être présenté.",
-    futureNote: "Les projets ne sont ajoutés ici qu'une fois leurs informations vérifiées.", noShots: "Les captures d'écran seront ajoutées après sélection des visuels du projet."
+    playerCard: "Ma fiche joueur (CV)", contact: "Contact", bench: "BANC DE TOUCHE", formation: "Formation", skills: "Compétences",
+    welcome: "BIENVENUE AU STADE", headline: "Mes projets, <em>mon terrain de jeu.</em>",
+    instruction: "Choisis un maillot : le ballon fait la passe et la fiche s'ouvre.", keeper: "GARDIEN · MOI", projectsLabel: "PROJETS SÉLECTIONNÉS",
+    futureLabel: "2 MAILLOTS À VENIR", hint: "Clique sur un maillot pour recevoir la passe.", legend: "Sélectionne un projet pour le découvrir",
+    coachRole: "Étudiant en Data & IA", coachQuote: "« Apprendre aujourd'hui, construire demain. »", contextTitle: "CONTEXTE & OBJECTIF", workTitle: "TRAVAIL RÉALISÉ",
+    skillsTitle: "TECHNOLOGIES & COMPÉTENCES", screensTitle: "GALERIE DU PROJET", playerCardKicker: "CARTE JOUEUR · PROFIL",
+    profileRole: "Data & IA · Étudiant ingénieur à l'ESILV", coachIntroShort: "Je construis mon parcours entre data, outils numériques et compréhension des besoins métiers.",
+    cvNote: "Le CV PDF sera ajouté ici lorsqu'il sera prêt.", linkedin: "Voir mon LinkedIn ↗", return: "Retour au terrain", footer: "Un portfolio qui se construit projet après projet.",
+    openProject: "Voir le dépôt GitHub", linkSoon: "Lien à ajouter après vérification", motto: "Plus qu'un projet, une nouvelle façon de voir les données.",
+    coachKicker: "LE COACH · À PROPOS", coachJourney: "Mon parcours", coachJourneyText: "Ma formation en Data & IA s'appuie sur deux expériences chez RTE, où j'ai travaillé sur des tableaux de bord Power BI pour répondre à des besoins métiers.",
+    coachGoals: "Mes objectifs", coachGoalsText: "Explorer davantage l'intelligence artificielle, consolider mes compétences data et trouver un stage à partir d'avril 2027 pour contribuer à des projets concrets.",
+    coachPhilosophy: "Ma philosophie", coachPhilosophyText: "Comprendre le besoin, rendre l'information lisible et concevoir des outils utiles à ceux qui les utilisent. Je m'intéresse aussi à l'ergonomie et à la façon dont les personnes interagissent avec les produits numériques.",
+    clubSheet: "FAIZAN FC · FICHE ÉQUIPE", future: "À venir", futureTitle: "Projet à venir", futureDescription: "Ce maillot réserve une place à un futur projet. Il sera activé lorsque son contenu sera prêt à être présenté.",
+    futureNote: "Cette fiche est volontairement vide : aucun projet fictif n'est ajouté au portfolio.", addScreenshot: "Capture à ajouter", screenshotNote: "L'aperçu ci-dessous est un emplacement de travail. Il sera remplacé par une capture réelle du projet.",
+    slide: "Capture", galleryExpand: "Agrandir la galerie", galleryShrink: "Réduire la galerie", benchSwitchToBottom: "Tester le banc horizontal ↔", benchSwitchToLeft: "Remettre le banc à gauche ↔",
+    formationBody: "<p><strong>ESILV — École d'ingénieurs</strong><br>Master 1 · Data & Intelligence Artificielle</p><p class='info-highlight'>Je développe mes compétences à travers les cours, les projets académiques et les expériences en entreprise.</p><p><strong>Expérience professionnelle</strong><br>RTE · réalisation de tableaux de bord Power BI, analyse de besoins métiers et travail sur les indicateurs.</p>",
+    skillsBody: "<p><strong>Data & visualisation</strong><br>Power BI, DAX, conception de KPI et amélioration de la lisibilité des tableaux de bord.</p><p><strong>Programmation & données</strong><br>C#, Python et SQL/MySQL dans le cadre de projets académiques et de formation.</p><p class='info-highlight'><strong>Ergonomie & conception</strong><br>Intérêt pour l'UX/UI et découverte de Figma : un axe que je souhaite continuer à explorer.</p>"
   },
   en: {
-    season: "PORTFOLIO · 2026/27 SEASON", playerCard: "My player card (CV)", contact: "Contact", welcome: "WELCOME TO THE STADIUM",
-    headline: "My projects.<br><em>My field of play.</em>", instruction: "Choose a project. The goalkeeper passes the ball to the selected player and opens their player card.",
-    projectsLabel: "SELECTED PROJECTS", confirmed: "4 PROJECTS TO DISCOVER", futureLabel: "MORE PROJECTS COMING…", keeper: "GOALKEEPER · ME",
-    hint: "Click a jersey to receive a pass from the goalkeeper.", playerFile: "PLAYER CARD · MATCH REPORT", skillsTitle: "SKILLS USED", screensTitle: "PROJECT SCREENSHOTS",
-    openProject: "View project ↗", linkSoon: "Link to be added after verification", return: "Back to the pitch", playerCardKicker: "PLAYER CARD · PROFILE",
-    profileRole: "Data & AI · Engineering student at ESILV", cvNote: "A downloadable CV will be added here when the final file is ready.",
-    linkedin: "View my LinkedIn ↗", footer: "A portfolio built one project at a time.", shot: "Screenshot to add", future: "Coming soon", futureDescription: "A new project is in preparation. This jersey will be activated when the project is ready to present.",
-    futureNote: "Projects are only added once their information has been verified.", noShots: "Screenshots will be added after selecting project visuals."
+    playerCard: "My player card (CV)", contact: "Contact", bench: "SUBSTITUTES", formation: "Education", skills: "Skills",
+    welcome: "WELCOME TO THE STADIUM", headline: "My projects, <em>my field of play.</em>",
+    instruction: "Choose a jersey: the ball makes the pass and the project card opens.", keeper: "GOALKEEPER · ME", projectsLabel: "SELECTED PROJECTS",
+    futureLabel: "2 FUTURE JERSEYS", hint: "Click a jersey to receive the pass.", legend: "Select a project to explore it",
+    coachRole: "Data & AI student", coachQuote: "“Learn today, build tomorrow.”", contextTitle: "CONTEXT & OBJECTIVE", workTitle: "WORK COMPLETED",
+    skillsTitle: "TECHNOLOGIES & SKILLS", screensTitle: "PROJECT GALLERY", playerCardKicker: "PLAYER CARD · PROFILE",
+    profileRole: "Data & AI · Engineering student at ESILV", coachIntroShort: "I am building my path around data, digital tools and understanding business needs.",
+    cvNote: "The PDF resume will be added here when it is ready.", linkedin: "View my LinkedIn ↗", return: "Back to the pitch", footer: "A portfolio built one project at a time.",
+    openProject: "View GitHub repository", linkSoon: "Link to be added after verification", motto: "More than a project: a new way to see data.",
+    coachKicker: "THE COACH · ABOUT ME", coachJourney: "My journey", coachJourneyText: "My Data & AI degree is complemented by two experiences at RTE, where I worked on Power BI dashboards to meet business needs.",
+    coachGoals: "My goals", coachGoalsText: "Explore artificial intelligence further, strengthen my data skills and find an internship starting in April 2027 to contribute to practical projects.",
+    coachPhilosophy: "My philosophy", coachPhilosophyText: "Understand the need, make information easy to read, and design useful tools for the people who use them. I am also interested in usability and the way people interact with digital products.",
+    clubSheet: "FAIZAN FC · TEAM CARD", future: "Coming soon", futureTitle: "Future project", futureDescription: "This jersey reserves a place for a future project. It will be activated once the content is ready to present.",
+    futureNote: "This card is intentionally empty: no fictional project is added to the portfolio.", addScreenshot: "Screenshot to add", screenshotNote: "This preview is a placeholder. It will be replaced with a real project screenshot.",
+    slide: "Screenshot", galleryExpand: "Expand gallery", galleryShrink: "Reduce gallery", benchSwitchToBottom: "Test horizontal bench ↔", benchSwitchToLeft: "Move bench back to the left ↔",
+    formationBody: "<p><strong>ESILV — Engineering school</strong><br>Master 1 · Data & Artificial Intelligence</p><p class='info-highlight'>I develop my skills through coursework, academic projects and professional experience.</p><p><strong>Professional experience</strong><br>RTE · Power BI dashboards, business needs analysis and KPI reporting.</p>",
+    skillsBody: "<p><strong>Data & visualisation</strong><br>Power BI, DAX, KPI design and dashboard readability improvements.</p><p><strong>Programming & data</strong><br>C#, Python and SQL/MySQL through academic projects and coursework.</p><p class='info-highlight'><strong>Usability & design</strong><br>Interest in UX/UI and an introduction to Figma — an area I plan to keep exploring.</p>"
   }
 };
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+}
+
+function createJerseySvg(kit, uniqueId = "kit") {
+  const palettes = {
+    cream: { light: "#fff9e9", mid: "#e7dcc4", dark: "#bdb199", trim: "#c5a04c", ink: "#163d2b" },
+    gold: { light: "#f6dfa0", mid: "#d4ad51", dark: "#96702c", trim: "#f7e2a1", ink: "#173b29" },
+    green: { light: "#356b4b", mid: "#17412c", dark: "#092719", trim: "#d7a84a", ink: "#f0ebdd" }
+  };
+  const p = palettes[kit] || palettes.cream;
+  const id = `shirt-${uniqueId.replace(/[^a-z0-9-]/gi, "")}`;
+  const silhouette = "M45 12 L57 18 Q70 25 83 18 L95 12 L129 31 L113 53 L99 44 L99 140 Q70 147 41 140 L41 44 L27 53 L11 31 Z";
+  const stripePattern = kit === "green"
+    ? `<path d="M48 40 L48 136 M58 37 L58 140 M68 35 L68 142 M78 37 L78 140 M88 40 L88 136" stroke="#f0ebdd" stroke-opacity=".075" stroke-width="2"/>`
+    : `<path d="M49 39 L49 137 M58 37 L58 140 M82 37 L82 140 M91 39 L91 137" stroke="#ffffff" stroke-opacity=".23" stroke-width="2"/>`;
+  return `<svg viewBox="0 0 140 154" aria-hidden="true" focusable="false"><defs><linearGradient id="${id}-fabric" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${p.light}"/><stop offset=".38" stop-color="${p.mid}"/><stop offset=".7" stop-color="${p.light}"/><stop offset="1" stop-color="${p.dark}"/></linearGradient><linearGradient id="${id}-sleeve" x1="0" y1="0" x2=".9" y2="1"><stop offset="0" stop-color="${p.light}"/><stop offset="1" stop-color="${p.dark}"/></linearGradient><linearGradient id="${id}-shade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".15"/><stop offset=".25" stop-color="#fff" stop-opacity=".11"/><stop offset=".65" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".17"/></linearGradient><clipPath id="${id}-clip"><path d="${silhouette}"/></clipPath></defs><path d="${silhouette}" fill="url(#${id}-fabric)" stroke="${p.trim}" stroke-width="2.1" stroke-linejoin="round"/><g clip-path="url(#${id}-clip)"><rect x="8" y="10" width="124" height="135" fill="url(#${id}-shade)"/>${stripePattern}<path d="M16 33 L28 49 M124 33 L112 49" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="3"/><path d="M43 52 L47 132 M97 52 L93 132" stroke="#fff" stroke-opacity=".17" stroke-width="2"/><path d="M47 80 Q51 93 48 111 M93 76 Q88 96 93 116" fill="none" stroke="#000" stroke-opacity=".12" stroke-width="3"/><path d="M41 44 L99 44" stroke="${p.trim}" stroke-opacity=".45" stroke-width="1.5"/><path d="M41 138 Q70 145 99 138" fill="none" stroke="#fff" stroke-opacity=".33" stroke-width="1.5"/></g><path d="M53 17 Q70 30 87 17 L82 10 Q70 18 58 10 Z" fill="${kit === "green" ? "#081e13" : "#203c2a"}" stroke="${p.trim}" stroke-width="1.5"/><path d="M16 40 L25 48 M124 40 L115 48" stroke="${p.trim}" stroke-width="4" stroke-linecap="round"/><path d="M45 12 L57 18 Q70 25 83 18 L95 12" fill="none" stroke="#fff" stroke-opacity=".46" stroke-width="1.5"/><path d="M43 142 Q70 149 97 142" fill="none" stroke="${p.trim}" stroke-width="1.6"/></svg>`;
+}
+
+function makePrintMarkup(project, isFuture = false) {
+  const name = isFuture ? "PROJET À VENIR" : (project.shirtLabel || project.name).toUpperCase();
+  const number = isFuture ? "?" : project.jersey;
+  return `<span class="jersey__print"><span class="jersey__name">${escapeHtml(name)}</span><span class="jersey__number">${escapeHtml(number)}</span></span>`;
+}
 
 function createPlayer(project) {
   const button = document.createElement("button");
   button.type = "button";
   button.className = `player player--${project.id}`;
+  button.style.setProperty("--x", `${project.position.x}%`);
+  button.style.setProperty("--y", `${project.position.y}%`);
+  button.style.setProperty("--shirt-ink", project.kit === "green" ? "#f0ebdd" : "#163d2b");
   button.setAttribute("aria-label", `Découvrir le projet ${project.name}`);
-  button.innerHTML = `<span class="jersey" aria-hidden="true"><span class="jersey__number">${project.jersey}</span></span><span class="player__name">${project.name}</span><span class="player__type">${project.type}</span>`;
+  button.dataset.projectId = project.id;
+  button.innerHTML = `<span class="jersey" aria-hidden="true">${createJerseySvg(project.kit, project.id)}${makePrintMarkup(project)}</span><span class="player__name">${escapeHtml(project.name)}</span><span class="player__type">${escapeHtml(project.type)}</span>`;
   button.addEventListener("click", () => openProject(project, button));
   return button;
 }
 
-function createFuturePlayer(index) {
+const futurePlayers = [
+  { id: "future-1", position: { x: 77, y: 59 }, kit: "cream" },
+  { id: "future-2", position: { x: 55, y: 79 }, kit: "green" }
+];
+
+function createFuturePlayer(future) {
   const button = document.createElement("button");
   button.type = "button";
-  button.className = `player player--future player--future-${index}`;
-  button.setAttribute("aria-label", translations[currentLanguage].future);
-  button.innerHTML = `<span class="jersey" aria-hidden="true"><span class="jersey__number">?</span></span><span class="player__name">${translations[currentLanguage].future}</span><span class="player__type">${currentLanguage === "fr" ? "EN PRÉPARATION" : "IN PREPARATION"}</span>`;
+  button.className = `player player--future player--${future.id}`;
+  button.style.setProperty("--x", `${future.position.x}%`);
+  button.style.setProperty("--y", `${future.position.y}%`);
+  button.style.setProperty("--shirt-ink", future.kit === "green" ? "#f0ebdd" : "#163d2b");
+  button.setAttribute("aria-label", translations[currentLanguage].futureTitle);
+  button.dataset.futureId = future.id;
+  button.innerHTML = `<span class="jersey" aria-hidden="true">${createJerseySvg(future.kit, future.id)}${makePrintMarkup({}, true)}</span><span class="player__name">${translations[currentLanguage].future}</span><span class="player__type">${currentLanguage === "fr" ? "EN PRÉPARATION" : "IN PREPARATION"}</span>`;
   button.addEventListener("click", () => openFutureProject(button));
   return button;
 }
 
-function runPass(target) {
+function renderPlayers() {
+  playersContainer.replaceChildren();
+  projects.forEach(project => playersContainer.append(createPlayer(project)));
+  futurePlayers.forEach(future => playersContainer.append(createFuturePlayer(future)));
+  if (currentProject) {
+    const selected = playersContainer.querySelector(`[data-project-id="${CSS.escape(currentProject.id)}"]`);
+    if (selected) selected.classList.add("is-selected");
+  }
+}
+
+function getKeeperBallPoint() {
   const pitchRect = pitch.getBoundingClientRect();
   const keeperRect = goalkeeper.getBoundingClientRect();
+  return { x: keeperRect.left + keeperRect.width * .78 - pitchRect.left, y: keeperRect.top + keeperRect.height * .65 - pitchRect.top };
+}
+
+function getTargetBallPoint(target) {
+  const pitchRect = pitch.getBoundingClientRect();
   const targetRect = target.getBoundingClientRect();
-  const startX = keeperRect.left + keeperRect.width / 2 - pitchRect.left;
-  const startY = keeperRect.top + keeperRect.height * .48 - pitchRect.top;
-  const endX = targetRect.left + targetRect.width / 2 - pitchRect.left;
-  const endY = targetRect.top + targetRect.height * .35 - pitchRect.top;
-  ball.style.left = `${startX}px`;
-  ball.style.top = `${startY}px`;
-  ball.style.setProperty("--delta-x", `${endX - startX}px`);
-  ball.style.setProperty("--delta-y", `${endY - startY}px`);
-  ball.classList.remove("is-moving");
-  void ball.offsetWidth;
-  ball.classList.add("is-moving");
+  return {
+    x: targetRect.left + targetRect.width * .78 - pitchRect.left,
+    y: targetRect.top + targetRect.height * .48 - pitchRect.top + 13
+  };
+}
+
+function setBallPoint(point, rotation = 0, scale = 1) {
+  ballPoint = { x: point.x, y: point.y };
+  ball.style.transform = `translate3d(${point.x - ball.offsetWidth / 2}px, ${point.y - ball.offsetHeight / 2}px, 0) rotate(${rotation}deg) scale(${scale})`;
+}
+
+function runPass(target, callback) {
+  if (modalOpenTimer) window.clearTimeout(modalOpenTimer);
+  if (ballFrame) cancelAnimationFrame(ballFrame);
+  const start = ballPoint || getKeeperBallPoint();
+  const end = getTargetBallPoint(target);
+  const dx = end.x - start.x;
+  const dy = end.y - start.y;
+  const distance = Math.hypot(dx, dy);
+  const arc = Math.min(88, Math.max(24, distance * .13));
+  const length = Math.max(1, distance);
+  const normalX = -dy / length;
+  const normalY = dx / length;
+  const direction = dy < 0 ? -1 : 1;
+  const bend = arc * direction;
+  const c1 = { x: start.x + dx * .28 + normalX * bend, y: start.y + dy * .28 + normalY * bend - arc * .5 };
+  const c2 = { x: start.x + dx * .72 + normalX * bend, y: start.y + dy * .72 + normalY * bend - arc * .5 };
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const duration = reduceMotion ? 80 : 780;
+  const startedAt = performance.now();
+  ball.style.opacity = "1";
+
+  function frame(now) {
+    const raw = Math.min(1, (now - startedAt) / duration);
+    const t = 1 - Math.pow(1 - raw, 2.7);
+    const inv = 1 - t;
+    const point = {
+      x: inv * inv * inv * start.x + 3 * inv * inv * t * c1.x + 3 * inv * t * t * c2.x + t * t * t * end.x,
+      y: inv * inv * inv * start.y + 3 * inv * inv * t * c1.y + 3 * inv * t * t * c2.y + t * t * t * end.y
+    };
+    const rotation = 900 * t;
+    const scale = 0.82 + Math.sin(Math.PI * t) * .26;
+    setBallPoint(point, rotation, scale);
+    if (raw < 1) {
+      ballFrame = requestAnimationFrame(frame);
+    } else {
+      ballFrame = 0;
+      setBallPoint(end, 900, 1);
+      if (typeof callback === "function") callback();
+    }
+  }
+  ballFrame = requestAnimationFrame(frame);
+}
+
+function setActiveModal(backdrop) {
+  [projectBackdrop, profileBackdrop, coachBackdrop, infoBackdrop].forEach(item => { if (item !== backdrop) item.hidden = true; });
+  backdrop.hidden = false;
+  document.body.classList.add("modal-open");
+  activeModal = backdrop;
+}
+
+function fillProject(project, isFuture = false) {
+  const t = translations[currentLanguage];
+  document.querySelector("#panel-shirt").innerHTML = createJerseySvg(isFuture ? "green" : project.kit, `panel-${isFuture ? "future" : project.id}`);
+  document.querySelector("#panel-type").textContent = isFuture ? t.futureTitle.toUpperCase() : project.type.toUpperCase();
+  document.querySelector("#panel-title").textContent = isFuture ? t.futureTitle : project.name;
+  document.querySelector("#panel-subtitle").textContent = isFuture ? t.future : project.type;
+  document.querySelector("#panel-description").textContent = isFuture ? t.futureDescription : (currentLanguage === "fr" ? project.description : project.descriptionEn);
+  const work = document.querySelector("#panel-work");
+  work.replaceChildren();
+  const workItems = isFuture ? [t.futureNote] : (currentLanguage === "fr" ? project.work : project.workEn);
+  workItems.forEach(item => { const li = document.createElement("li"); li.textContent = item; work.append(li); });
+  const tags = document.querySelector("#panel-tags");
+  tags.replaceChildren();
+  (isFuture ? [] : project.technologies).forEach(item => { const span = document.createElement("span"); span.className = "tag"; span.textContent = item; tags.append(span); });
+  document.querySelector("#panel-note").textContent = isFuture ? t.futureNote : (currentLanguage === "fr" ? project.note : project.noteEn);
+  const link = document.querySelector("#panel-link");
+  const linkPlaceholder = document.querySelector("#panel-link-placeholder");
+  if (!isFuture && project.link) { link.href = project.link; link.hidden = false; linkPlaceholder.hidden = true; }
+  else { link.hidden = true; linkPlaceholder.hidden = isFuture; }
+  galleryIndex = 0;
+  renderGallery(isFuture ? { screenshots: [] } : project);
 }
 
 function openProject(project, player) {
+  currentProject = project;
   lastFocusedElement = player;
-  runPass(player);
-  const t = translations[currentLanguage];
-  document.querySelector("#panel-number").textContent = project.jersey;
-  document.querySelector("#panel-rating").textContent = project.rating;
-  document.querySelector("#panel-category").textContent = project.category;
-  document.querySelector("#panel-type").textContent = project.type.toUpperCase();
-  document.querySelector("#panel-title").textContent = project.name;
-  document.querySelector("#panel-description").textContent = currentLanguage === "fr" ? project.description : project.descriptionEn;
-  document.querySelector("#panel-note").textContent = currentLanguage === "fr" ? project.note : project.noteEn;
-  const tags = document.querySelector("#panel-tags");
-  tags.replaceChildren();
-  project.technologies.forEach(technology => {
-    const tag = document.createElement("span"); tag.className = "tag"; tag.textContent = technology; tags.append(tag);
-  });
-  const screenshots = document.querySelector("#panel-screenshots");
-  screenshots.replaceChildren();
-  if (project.screenshots.length) {
-    project.screenshots.forEach(src => {
-      const img = document.createElement("img"); img.src = src; img.alt = `${project.name} — ${t.screensTitle.toLowerCase()}`; screenshots.append(img);
-    });
-  } else {
-    const placeholder = document.createElement("div"); placeholder.className = "screenshot-placeholder";
-    placeholder.innerHTML = `<span class="screenshot-placeholder__icon" aria-hidden="true">▧</span><span>${t.noShots}</span><small>${t.shot}</small>`;
-    screenshots.append(placeholder);
-  }
-  const link = document.querySelector("#panel-link");
-  const linkPlaceholder = document.querySelector("#panel-link-placeholder");
-  if (project.link) { link.href = project.link; link.hidden = false; linkPlaceholder.hidden = true; }
-  else { link.hidden = true; linkPlaceholder.hidden = false; }
+  document.querySelectorAll(".player").forEach(item => item.classList.toggle("is-selected", item === player));
+  fillProject(project);
   projectBackdrop.hidden = true;
   document.body.classList.remove("modal-open");
-  window.setTimeout(() => {
-    projectBackdrop.hidden = false;
-    document.body.classList.add("modal-open");
+  runPass(player, () => {
+    setActiveModal(projectBackdrop);
     document.querySelector("#close-project").focus();
-  }, window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 650);
+  });
 }
 
 function openFutureProject(button) {
   lastFocusedElement = button;
-  const t = translations[currentLanguage];
-  document.querySelector("#panel-number").textContent = "?";
-  document.querySelector("#panel-rating").textContent = "NEXT";
-  document.querySelector("#panel-category").textContent = t.future.toUpperCase();
-  document.querySelector("#panel-type").textContent = t.future.toUpperCase();
-  document.querySelector("#panel-title").textContent = t.future;
-  document.querySelector("#panel-description").textContent = t.futureDescription;
-  document.querySelector("#panel-note").textContent = t.futureNote;
-  document.querySelector("#panel-tags").replaceChildren();
-  document.querySelector("#panel-screenshots").innerHTML = `<div class="screenshot-placeholder"><span class="screenshot-placeholder__icon">?</span><span>${t.futureDescription}</span></div>`;
-  document.querySelector("#panel-link").hidden = true;
-  document.querySelector("#panel-link-placeholder").hidden = true;
-  projectBackdrop.hidden = false;
-  document.body.classList.add("modal-open");
-  document.querySelector("#close-project").focus();
+  currentProject = null;
+  document.querySelectorAll(".player").forEach(item => item.classList.toggle("is-selected", item === button));
+  fillProject({}, true);
+  projectBackdrop.hidden = true;
+  document.body.classList.remove("modal-open");
+  runPass(button, () => {
+    setActiveModal(projectBackdrop);
+    document.querySelector("#close-project").focus();
+  });
 }
 
 function closeProject() {
   projectBackdrop.hidden = true;
   document.body.classList.remove("modal-open");
-  ball.classList.remove("is-moving");
-  if (lastFocusedElement) lastFocusedElement.focus();
+  activeModal = null;
+  if (document.querySelector(".gallery.is-expanded")) document.querySelector(".gallery.is-expanded").classList.remove("is-expanded");
+  if (lastFocusedElement && lastFocusedElement.isConnected) lastFocusedElement.focus();
 }
+
 function openProfile() {
   lastFocusedElement = document.activeElement;
-  profileBackdrop.hidden = false;
-  document.body.classList.add("modal-open");
+  setActiveModal(profileBackdrop);
   document.querySelector("#close-profile").focus();
 }
 function closeProfile() {
   profileBackdrop.hidden = true;
   document.body.classList.remove("modal-open");
-  if (lastFocusedElement) lastFocusedElement.focus();
+  activeModal = null;
+  if (lastFocusedElement && lastFocusedElement.isConnected) lastFocusedElement.focus();
 }
+function openCoach() {
+  lastFocusedElement = document.activeElement;
+  setActiveModal(coachBackdrop);
+  document.querySelector("#close-coach").focus();
+}
+function closeCoach() {
+  coachBackdrop.hidden = true;
+  document.body.classList.remove("modal-open");
+  activeModal = null;
+  if (lastFocusedElement && lastFocusedElement.isConnected) lastFocusedElement.focus();
+}
+
+function openInfo(which) {
+  const t = translations[currentLanguage];
+  if (which === "formation") {
+    document.querySelector("#info-title").textContent = t.formation;
+    document.querySelector("#info-body").innerHTML = t.formationBody;
+  } else {
+    document.querySelector("#info-title").textContent = t.skills;
+    document.querySelector("#info-body").innerHTML = t.skillsBody;
+  }
+  lastFocusedElement = document.activeElement;
+  setActiveModal(infoBackdrop);
+  document.querySelector("#close-info").focus();
+}
+function closeInfo() {
+  infoBackdrop.hidden = true;
+  document.body.classList.remove("modal-open");
+  activeModal = null;
+  if (lastFocusedElement && lastFocusedElement.isConnected) lastFocusedElement.focus();
+}
+
+function slideCount(project) {
+  return project && project.screenshots && project.screenshots.length ? project.screenshots.length : 3;
+}
+function renderGallery(project) {
+  const stage = document.querySelector("#gallery-stage");
+  const thumbs = document.querySelector("#gallery-thumbs");
+  const count = slideCount(project);
+  galleryIndex = Math.max(0, Math.min(galleryIndex, count - 1));
+  stage.querySelectorAll("img,.gallery-placeholder").forEach(element => element.remove());
+  const images = project && project.screenshots ? project.screenshots : [];
+  if (images.length) {
+    const image = document.createElement("img");
+    image.src = images[galleryIndex];
+    image.alt = `${project.name} — ${translations[currentLanguage].slide} ${galleryIndex + 1}`;
+    stage.prepend(image);
+  } else {
+    const t = translations[currentLanguage];
+    const placeholder = document.createElement("div");
+    placeholder.className = `gallery-placeholder gallery-placeholder--${galleryIndex + 1}`;
+    placeholder.innerHTML = `<div class="gallery-placeholder__art"><span class="art-node art-node--one"></span><span class="art-node art-node--two"></span><span class="art-node art-node--three"></span><span class="art-lines"></span><span class="art-bars"><i></i><i></i><i></i><i></i><i></i></span></div><strong>${escapeHtml(t.addScreenshot.toUpperCase())} · ${galleryIndex + 1}/3</strong><small>${escapeHtml(t.screenshotNote)}</small>`;
+    stage.prepend(placeholder);
+  }
+  thumbs.replaceChildren();
+  for (let index = 0; index < count; index++) {
+    const thumb = document.createElement("button");
+    thumb.type = "button";
+    thumb.className = `gallery-thumb${index === galleryIndex ? " is-active" : ""}`;
+    thumb.setAttribute("aria-label", `${translations[currentLanguage].slide} ${index + 1}`);
+    if (images[index]) {
+      const image = document.createElement("img"); image.src = images[index]; image.alt = ""; thumb.append(image);
+    } else {
+      const mini = document.createElement("span"); mini.setAttribute("aria-hidden", "true"); thumb.append(mini);
+    }
+    thumb.addEventListener("click", () => { galleryIndex = index; renderGallery(currentProject); });
+    thumbs.append(thumb);
+  }
+  document.querySelector("#gallery-count").textContent = `${galleryIndex + 1} / ${count}`;
+  document.querySelector("#gallery-prev").disabled = count < 2;
+  document.querySelector("#gallery-next").disabled = count < 2;
+}
+function moveGallery(direction) {
+  const count = slideCount(currentProject);
+  galleryIndex = (galleryIndex + direction + count) % count;
+  renderGallery(currentProject);
+}
+
 function setLanguage(language) {
   currentLanguage = language;
   document.documentElement.lang = language;
+  const t = translations[language];
   document.querySelectorAll("[data-i18n]").forEach(element => {
     const key = element.dataset.i18n;
-    if (translations[language][key]) element.innerHTML = translations[language][key];
+    if (!t[key]) return;
+    if (key === "headline") element.innerHTML = t[key];
+    else element.textContent = t[key];
   });
-  document.querySelector("#language-button").textContent = language === "fr" ? "EN" : "FR";
-  document.querySelector("#goalkeeper").setAttribute("aria-label", language === "fr" ? "Gardien : Faizan, passe le ballon aux projets" : "Goalkeeper: Faizan passes the ball to projects");
-  const selected = document.querySelector(".player.is-selected");
-  if (selected) {
-    const projectId = [...selected.classList].find(name => name.startsWith("player--") && name !== "player--future").replace("player--", "");
-    const project = projects.find(item => item.id === projectId);
-    if (project && !projectBackdrop.hidden) openProject(project, selected);
+  document.querySelector("#language-button").innerHTML = language === "fr" ? "FR <span>/</span> EN" : "EN <span>/</span> FR";
+  document.querySelector("#goalkeeper").setAttribute("aria-label", language === "fr" ? "Gardien : Faizan" : "Goalkeeper: Faizan");
+  document.querySelector("#layout-switch").textContent = arena.classList.contains("bench--bottom") ? t.benchSwitchToLeft : t.benchSwitchToBottom;
+  renderPlayers();
+  if (currentProject && !projectBackdrop.hidden) fillProject(currentProject);
+  if (!infoBackdrop.hidden) {
+    const active = document.querySelector("#info-title").textContent;
+    openInfo(active === translations[language === "fr" ? "en" : "fr"].formation ? "formation" : "skills");
   }
-  const futureButtons = document.querySelectorAll(".player--future");
-  futureButtons.forEach((button, index) => {
-    button.querySelector(".player__name").textContent = translations[language].future;
-    button.querySelector(".player__type").textContent = language === "fr" ? "EN PRÉPARATION" : "IN PREPARATION";
-  });
 }
 
-projects.forEach(project => playersContainer.append(createPlayer(project)));
-playersContainer.append(createFuturePlayer(1), createFuturePlayer(2));
-document.querySelectorAll(".player").forEach(player => player.addEventListener("click", () => {
-  document.querySelectorAll(".player").forEach(item => item.classList.remove("is-selected"));
-  player.classList.add("is-selected");
-}));
+function setBenchLayout(mode) {
+  arena.classList.toggle("bench--bottom", mode === "bottom");
+  const t = translations[currentLanguage];
+  document.querySelector("#layout-switch").textContent = mode === "bottom" ? t.benchSwitchToLeft : t.benchSwitchToBottom;
+  window.setTimeout(() => {
+    const target = document.querySelector(".player.is-selected") || goalkeeper;
+    ballPoint = getTargetBallPoint(target === goalkeeper ? goalkeeper : target);
+    setBallPoint(ballPoint, 900, 1);
+  }, 180);
+}
+
+renderPlayers();
+ballPoint = getKeeperBallPoint();
+setBallPoint(ballPoint, 0, .88);
+const benchFromUrl = new URLSearchParams(window.location.search).get("bench");
+if (benchFromUrl === "bottom") setBenchLayout("bottom");
+else document.querySelector("#layout-switch").textContent = translations.fr.benchSwitchToBottom;
+
+document.querySelector("#profile-button").addEventListener("click", openProfile);
+document.querySelector("#bench-cv").addEventListener("click", openProfile);
+document.querySelector("#coach-button").addEventListener("click", openCoach);
+goalkeeper.addEventListener("click", openCoach);
+document.querySelectorAll("[data-panel]").forEach(button => button.addEventListener("click", () => openInfo(button.dataset.panel)));
 document.querySelector("#close-project").addEventListener("click", closeProject);
 document.querySelector("#close-project-bottom").addEventListener("click", closeProject);
 projectBackdrop.addEventListener("click", event => { if (event.target === projectBackdrop) closeProject(); });
-document.querySelector("#profile-button").addEventListener("click", openProfile);
 document.querySelector("#close-profile").addEventListener("click", closeProfile);
 document.querySelector("#close-profile-bottom").addEventListener("click", closeProfile);
 profileBackdrop.addEventListener("click", event => { if (event.target === profileBackdrop) closeProfile(); });
+document.querySelector("#close-coach").addEventListener("click", closeCoach);
+document.querySelector("#close-coach-bottom").addEventListener("click", closeCoach);
+coachBackdrop.addEventListener("click", event => { if (event.target === coachBackdrop) closeCoach(); });
+document.querySelector("#close-info").addEventListener("click", closeInfo);
+document.querySelector("#close-info-bottom").addEventListener("click", closeInfo);
+infoBackdrop.addEventListener("click", event => { if (event.target === infoBackdrop) closeInfo(); });
 document.querySelector("#language-button").addEventListener("click", () => setLanguage(currentLanguage === "fr" ? "en" : "fr"));
+document.querySelector("#gallery-prev").addEventListener("click", () => moveGallery(-1));
+document.querySelector("#gallery-next").addEventListener("click", () => moveGallery(1));
+document.querySelector("#gallery-open").addEventListener("click", () => {
+  const gallery = document.querySelector(".gallery");
+  const expanded = gallery.classList.toggle("is-expanded");
+  document.querySelector("#gallery-open").textContent = expanded ? "×" : "▧";
+  document.querySelector("#gallery-open").setAttribute("aria-label", expanded ? translations[currentLanguage].galleryShrink : translations[currentLanguage].galleryExpand);
+});
+document.querySelector("#layout-switch").addEventListener("click", () => setBenchLayout(arena.classList.contains("bench--bottom") ? "left" : "bottom"));
 document.addEventListener("keydown", event => {
-  if (event.key === "Escape") { if (!projectBackdrop.hidden) closeProject(); if (!profileBackdrop.hidden) closeProfile(); }
+  if (event.key === "Escape") {
+    const expandedGallery = document.querySelector(".gallery.is-expanded");
+    if (expandedGallery) { expandedGallery.classList.remove("is-expanded"); document.querySelector("#gallery-open").textContent = "▧"; return; }
+    if (activeModal === projectBackdrop) closeProject();
+    else if (activeModal === profileBackdrop) closeProfile();
+    else if (activeModal === coachBackdrop) closeCoach();
+    else if (activeModal === infoBackdrop) closeInfo();
+  }
+});
+window.addEventListener("resize", () => {
+  if (ballFrame) return;
+  const selected = document.querySelector(".player.is-selected");
+  const point = selected ? getTargetBallPoint(selected) : getKeeperBallPoint();
+  setBallPoint(point, 900, 1);
 });

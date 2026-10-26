@@ -1,31 +1,51 @@
-/* Contenu séparé du site : complète les descriptions et les liens quand ils sont vérifiés. */
+/* Données des projets : les éléments à confirmer restent volontairement signalés. */
 const projects = [
   {
-    id: "livin", jersey: "25", name: "Liv’In Paris", type: "Projet académique · en groupe",
-    description: "Projet collectif autour d'une application liée à la vie parisienne. La fiche détaillée sera précisée avec les fonctionnalités exactes et ta contribution personnelle.",
-    descriptionEn: "A group project around an application related to life in Paris. The detailed description will be completed with verified features and your individual contribution.",
-    technologies: ["C#", "MySQL", "Graphes", "Statistiques"], note: "À compléter : rôle personnel, fonctionnalités démontrables et lien du dépôt.",
-    noteEn: "To complete: individual role, demonstrable features and repository link.", jerseyYear: "2025", rating: "C# / SQL", category: "PROJET ACADÉMIQUE", link: "", screenshots: []
+    id: "livin", jersey: "10", shirtLabel: "LIV’IN PARIS", name: "Liv’In Paris", type: "Projet académique · en groupe",
+    position: { x: 18, y: 42 }, kit: "cream",
+    description: "Projet de groupe réalisé à l'ESILV. La problématique, les fonctionnalités détaillées et ta contribution personnelle seront précisées à partir du dépôt et des livrables.",
+    descriptionEn: "A group project developed at ESILV. The exact problem statement, features and your individual contribution will be specified from the repository and deliverables.",
+    work: ["Algorithmes de graphes", "Gestion de base de données", "Analyse statistique"],
+    workEn: ["Graph algorithms", "Database management", "Statistical analysis"],
+    technologies: ["C#", "MySQL", "Algorithmes de graphes", "Statistiques"],
+    note: "Le détail des réalisations personnelles sera complété après vérification du projet.",
+    noteEn: "Your individual contributions will be detailed after reviewing the project.",
+    category: "PROJET ACADÉMIQUE", link: "", screenshots: []
   },
   {
-    id: "pictionary", jersey: "01", name: "Pictionary Game", type: "Projet réalisé à Dublin",
-    description: "Un jeu développé pendant l'échange à Dublin. Les règles, le fonctionnement et ta contribution seront détaillés après vérification du projet.",
-    descriptionEn: "A game developed during your exchange in Dublin. The rules, features and your contribution will be detailed after reviewing the project.",
-    technologies: ["Technologies à confirmer"], note: "À compléter : règles du jeu, technologies, captures et contribution personnelle.",
-    noteEn: "To complete: game rules, technologies, screenshots and individual contribution.", jerseyYear: "DUB", rating: "GAME", category: "PROJET À DUBLIN", link: "", screenshots: []
+    id: "pictionary", jersey: "07", shirtLabel: "PICTIONARY", name: "Pictionary Game", type: "Projet réalisé à Dublin",
+    position: { x: 31, y: 20 }, kit: "gold",
+    description: "Projet réalisé pendant l'échange à Dublin. Les règles du jeu, les fonctionnalités et ta contribution personnelle restent à confirmer avant de finaliser cette présentation.",
+    descriptionEn: "A project developed during your exchange in Dublin. The game rules, features and your individual contribution need to be confirmed before this presentation is finalised.",
+    work: ["Détails de l'implémentation à confirmer"],
+    workEn: ["Implementation details to be confirmed"],
+    technologies: ["À confirmer"],
+    note: "À compléter : technologies, captures et lien du projet.",
+    noteEn: "To complete: technologies, screenshots and project link.",
+    category: "PROJET À DUBLIN", link: "", screenshots: []
   },
   {
-    id: "21", jersey: "21", name: "Jeu du 21", type: "Projet réalisé à Dublin",
-    description: "Un jeu réalisé pendant l'échange à Dublin. La variante du jeu et les choix d'implémentation restent à confirmer avant de rédiger la fiche finale.",
-    descriptionEn: "A game developed during your exchange in Dublin. The game variant and implementation choices need to be confirmed before finalising the project card.",
-    technologies: ["Technologies à confirmer"], note: "À compléter : variante, technologies, captures et contribution personnelle.",
-    noteEn: "To complete: game variant, technologies, screenshots and individual contribution.", jerseyYear: "21", rating: "GAME", category: "PROJET À DUBLIN", link: "", screenshots: []
+    id: "21", jersey: "21", shirtLabel: "JEU DU 21", name: "Jeu du 21", type: "Projet réalisé à Dublin",
+    position: { x: 33, y: 68 }, kit: "cream",
+    description: "Jeu développé pendant l'échange à Dublin. La variante exacte, les fonctionnalités et les choix techniques seront ajoutés après vérification des fichiers du projet.",
+    descriptionEn: "A game developed during your exchange in Dublin. The exact variant, features and technical choices will be added after checking the project files.",
+    work: ["Détails de l'implémentation à confirmer"],
+    workEn: ["Implementation details to be confirmed"],
+    technologies: ["À confirmer"],
+    note: "À compléter : règles, technologies, captures et contribution personnelle.",
+    noteEn: "To complete: rules, technologies, screenshots and individual contribution.",
+    category: "PROJET À DUBLIN", link: "", screenshots: []
   },
   {
-    id: "stock", jersey: "ST", name: "Stock Trade Market", type: "Projet réalisé à Dublin",
-    description: "Un projet autour du marché boursier réalisé pendant l'échange à Dublin. Les fonctionnalités et les données utilisées seront précisées à partir des fichiers du projet.",
-    descriptionEn: "A stock-market-related project developed during your exchange in Dublin. Features and data used will be described after reviewing the project files.",
-    technologies: ["Technologies à confirmer"], note: "À compléter : fonctionnalités, données, technologies, captures et contribution personnelle.",
-    noteEn: "To complete: features, data, technologies, screenshots and individual contribution.", jerseyYear: "ST", rating: "MARKET", category: "PROJET À DUBLIN", link: "", screenshots: []
+    id: "stock", jersey: "08", shirtLabel: "STOCK MARKET", name: "Stock Trade Market", type: "Projet réalisé à Dublin",
+    position: { x: 66, y: 22 }, kit: "gold",
+    description: "Projet lié au marché boursier réalisé pendant l'échange à Dublin. Les fonctionnalités, données et choix techniques restent à confirmer pour présenter fidèlement le travail.",
+    descriptionEn: "A stock-market-related project developed during your exchange in Dublin. Features, data and technical choices need to be confirmed to describe the work accurately.",
+    work: ["Fonctionnalités à confirmer"],
+    workEn: ["Features to be confirmed"],
+    technologies: ["À confirmer"],
+    note: "À compléter : fonctionnalités, données, technologies et lien du projet.",
+    noteEn: "To complete: features, data, technologies and project link.",
+    category: "PROJET À DUBLIN", link: "", screenshots: []
   }
 ];

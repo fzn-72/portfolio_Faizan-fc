@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#163d2b">
-  <meta name="description" content="Faizan FC — un portfolio Data & IA pensé comme un terrain de football.">
-  <title>Faizan FC — Data & IA</title>
+  <meta name="description" content="Faizan FC — portfolio Data & IA, pensé comme un terrain de football interactif.">
+  <title>Faizan FC — Portfolio Data & IA</title>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/pitch.css">
   <link rel="stylesheet" href="css/panels.css">
@@ -15,74 +15,121 @@
 </head>
 <body>
   <header class="scoreboard">
-    <a class="club-mark" href="#terrain" aria-label="Faizan FC, accueil"><span class="club-mark__shield">FC</span><span>FAIZAN <b>FC</b></span></a>
-    <div class="scoreboard__center"><span class="eyebrow" data-i18n="season">PORTFOLIO · SAISON 2026/27</span><h1>Data & Intelligence Artificielle</h1></div>
-    <div class="scoreboard__status"><span class="status-dot"></span> ESILV · M1</div>
-    <nav class="top-actions" aria-label="Navigation principale">
-      <button class="nav-button" id="profile-button" type="button" data-i18n="playerCard">Ma fiche joueur (CV)</button>
-      <a class="nav-button nav-button--gold" href="https://www.linkedin.com/in/faizannorat/" target="_blank" rel="noreferrer" data-i18n="contact">Contact</a>
-      <button class="language-button" id="language-button" type="button" aria-label="Switch language">EN</button>
+    <a class="club-mark" href="#terrain" aria-label="Faizan FC, accueil">
+      <span class="club-mark__shield" aria-hidden="true">FC</span>
+      <span class="club-mark__wordmark"><span>FAIZAN <b>FC</b></span><small>DATA & IA PORTFOLIO</small></span>
+    </a>
+    <div class="scoreboard__center" aria-label="Situation actuelle">
+      <span class="scoreboard__crest" aria-hidden="true">✦</span>
+      <div><span class="eyebrow">ÉQUIPE ACTUELLE</span><strong>ESILV · M1 DATA & IA</strong></div>
+      <span class="scoreboard__divider"></span>
+      <span class="scoreboard__crest scoreboard__crest--gold" aria-hidden="true">↗</span>
+      <div><span class="eyebrow">EXPÉRIENCE</span><strong>RTE · POWER BI</strong></div>
+    </div>
+    <nav class="top-actions" aria-label="Navigation rapide">
+      <button class="language-button" id="language-button" type="button" aria-label="Changer la langue">FR <span>/</span> EN</button>
+      <button class="nav-button" id="profile-button" type="button">♙ <span data-i18n="playerCard">Ma fiche joueur (CV)</span></button>
+      <a class="nav-button nav-button--gold" href="https://www.linkedin.com/in/faizannorat/" target="_blank" rel="noreferrer">✉ <span data-i18n="contact">Contact</span></a>
     </nav>
   </header>
 
-  <main>
-    <section class="intro" aria-label="Présentation">
-      <div><p class="eyebrow" data-i18n="welcome">BIENVENUE AU STADE</p><h2 data-i18n="headline">Mes projets.<br><em>Mon terrain de jeu.</em></h2></div>
-      <p class="intro__note" data-i18n="instruction">Choisis un projet. Depuis les pieds du gardien, le ballon part vers le joueur sélectionné et ouvre sa fiche.</p>
-    </section>
+  <main class="arena-layout bench--left" id="arena">
+    <aside class="substitutes" id="bench" aria-label="Banc de touche — navigation secondaire">
+      <div class="substitutes__heading"><span class="substitutes__led"></span><span data-i18n="bench">BANC DE TOUCHE</span></div>
+      <nav class="substitutes__nav">
+        <button class="nav-seat" type="button" data-panel="formation"><span class="nav-seat__icon" aria-hidden="true">♙</span><span data-i18n="formation">Formation</span></button>
+        <button class="nav-seat" type="button" data-panel="skills"><span class="nav-seat__icon" aria-hidden="true">✣</span><span data-i18n="skills">Compétences</span></button>
+        <button class="nav-seat" type="button" id="bench-cv"><span class="nav-seat__icon" aria-hidden="true">▤</span><span>CV</span></button>
+        <a class="nav-seat" href="https://www.linkedin.com/in/faizannorat/" target="_blank" rel="noreferrer"><span class="nav-seat__icon" aria-hidden="true">✉</span><span data-i18n="contact">Contact</span></a>
+      </nav>
+      <div class="substitutes__footer"><span>FFC</span><span class="substitutes__rule"></span><span>2026 / 27</span></div>
+    </aside>
 
-    <section class="pitch-wrap" id="terrain" aria-label="Terrain des projets">
-      <div class="pitch-label pitch-label--top"><span>FAIZAN FC</span><span data-i18n="projectsLabel">PROJETS SÉLECTIONNÉS</span></div>
+    <section class="pitch-wrap" id="terrain" aria-label="Terrain interactif des projets">
+      <div class="pitch-topline"><div><span class="eyebrow" data-i18n="welcome">BIENVENUE AU STADE</span><h1 data-i18n="headline">Mes projets, <em>mon terrain de jeu.</em></h1></div><p class="pitch-topline__hint" data-i18n="instruction">Choisis un maillot : le ballon fait la passe et la fiche s'ouvre.</p></div>
       <div class="pitch" id="pitch">
+        <div class="pitch__texture" aria-hidden="true"></div>
+        <div class="pitch__frame" aria-hidden="true"></div>
         <div class="pitch__markings" aria-hidden="true">
-          <div class="pitch__halfway"></div><div class="pitch__circle"></div>
-          <div class="pitch__box pitch__box--top"></div><div class="pitch__box pitch__box--bottom"></div>
-          <div class="pitch__goal pitch__goal--top"></div><div class="pitch__goal pitch__goal--bottom"></div>
+          <div class="pitch__halfway"></div><div class="pitch__circle"></div><div class="pitch__spot"></div>
+          <div class="pitch__box pitch__box--left"></div><div class="pitch__box pitch__box--right"></div>
+          <div class="pitch__box-small pitch__box-small--left"></div><div class="pitch__box-small pitch__box-small--right"></div>
+          <div class="pitch__goal pitch__goal--left"></div><div class="pitch__goal pitch__goal--right"></div>
+          <div class="pitch__corner pitch__corner--tl"></div><div class="pitch__corner pitch__corner--tr"></div>
+          <div class="pitch__corner pitch__corner--bl"></div><div class="pitch__corner pitch__corner--br"></div>
         </div>
-        <div class="pitch-stamp" aria-hidden="true">FFC<br><span>DATA XI</span></div>
-        <div class="players" id="players" aria-label="Projets disponibles"></div>
-        <button class="goalkeeper" id="goalkeeper" type="button" aria-label="Gardien : Faizan, passe le ballon aux projets">
-          <span class="goalkeeper__avatar" aria-hidden="true">F</span><span class="goalkeeper__shirt">GK</span><span class="goalkeeper__name">FAIZAN</span><span class="goalkeeper__role" data-i18n="keeper">GARDIEN · MOI</span>
+        <div class="pitch-watermark" aria-hidden="true">FAIZAN FC <span>· DATA & IA</span></div>
+        <div class="players" id="players" aria-label="Maillots des projets"></div>
+        <button class="goalkeeper" id="goalkeeper" type="button" aria-label="Gardien : Faizan">
+          <span class="goalkeeper__halo" aria-hidden="true"></span><span class="goalkeeper__head" aria-hidden="true"></span><span class="goalkeeper__body" aria-hidden="true"><span>1</span></span>
+          <span class="goalkeeper__name">FAIZAN</span><span class="goalkeeper__role" data-i18n="keeper">GARDIEN · MOI</span>
         </button>
         <div class="ball" id="ball" aria-hidden="true">
-          <svg viewBox="0 0 100 100" role="img" aria-label="Ballon de football"><circle cx="50" cy="50" r="46" fill="#f8f6ed" stroke="#14251b" stroke-width="4"/><path d="M50 29 66 40 60 59 40 59 34 40Z" fill="#14251b"/><path d="M50 29 49 7M66 40 88 34M60 59 72 80M40 59 28 80M34 40 12 34M49 7 69 14 88 34 93 55 72 80 50 95 28 80 7 55 12 34 31 14Z" fill="none" stroke="#14251b" stroke-width="4" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 100 100"><defs><radialGradient id="ballLight" cx="30%" cy="25%"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#d5d2c8"/></radialGradient></defs><circle cx="50" cy="50" r="46" fill="url(#ballLight)" stroke="#16251d" stroke-width="4"/><path d="M50 29 66 40 60 59 40 59 34 40Z" fill="#16251d"/><path d="M50 29 49 7M66 40 88 34M60 59 72 80M40 59 28 80M34 40 12 34M49 7 69 14 88 34 93 55 72 80 50 95 28 80 7 55 12 34 31 14Z" fill="none" stroke="#16251d" stroke-width="4" stroke-linejoin="round"/></svg>
         </div>
+        <button class="coach-widget" id="coach-button" type="button" aria-label="Ouvrir la fiche du coach">
+          <span class="coach-widget__avatar" aria-hidden="true">F</span><span class="coach-widget__copy"><strong>FAIZAN <span>♛</span></strong><small data-i18n="coachRole">Étudiant en Data & IA</small><small>ESILV · RTE</small><em data-i18n="coachQuote">« Apprendre aujourd'hui, construire demain. »</em></span><span class="coach-widget__open" aria-hidden="true">↗</span>
+        </button>
+        <div class="pitch-caption"><span data-i18n="projectsLabel">PROJETS SÉLECTIONNÉS</span><span><i></i><span data-i18n="futureLabel">2 MAILLOTS À VENIR</span></span></div>
       </div>
-      <div class="pitch-label pitch-label--bottom"><span data-i18n="confirmed">4 PROJETS À DÉCOUVRIR</span><span data-i18n="futureLabel">D'AUTRES PROJETS ARRIVENT…</span></div>
+      <div class="under-pitch"><span data-i18n="hint">Clique sur un maillot pour recevoir la passe.</span><span class="under-pitch__legend"><span class="legend-dot"></span><span data-i18n="legend">Sélectionne un projet pour le découvrir</span></span></div>
     </section>
-    <p class="interaction-hint" data-i18n="hint">Clique sur un maillot pour recevoir la passe du gardien.</p>
   </main>
 
   <div class="modal-backdrop" id="project-backdrop" hidden>
-    <section class="player-card" id="project-card" role="dialog" aria-modal="true" aria-labelledby="panel-title">
-      <button class="modal-close" id="close-project" type="button" aria-label="Close">×</button>
-      <div class="player-card__visual">
-        <p class="eyebrow" data-i18n="playerFile">FICHE JOUEUR · RAPPORT DE MATCH</p>
-        <div class="player-card__crest"><span id="panel-number">01</span><small>FAIZAN FC</small></div>
-        <div class="player-card__rating"><strong id="panel-rating">PROJET</strong><span id="panel-category">ACADÉMIQUE</span></div>
-        <div class="mini-pitch" aria-hidden="true"><span class="mini-pitch__circle"></span><span class="mini-pitch__ball">⚽</span></div>
+    <section class="project-panel" id="project-card" role="dialog" aria-modal="true" aria-labelledby="panel-title">
+      <button class="modal-close" id="close-project" type="button" aria-label="Fermer">×</button>
+      <div class="project-panel__content">
+        <header class="project-heading"><span class="project-heading__kit" id="panel-shirt" aria-hidden="true"></span><div><p class="eyebrow" id="panel-type">PROJET ACADÉMIQUE</p><h2 id="panel-title">Nom du projet</h2><span class="project-heading__subtitle" id="panel-subtitle">Académique · Algorithmes & Data</span></div></header>
+        <div class="project-panel__columns">
+          <div class="project-copy">
+            <section class="detail-section"><h3 data-i18n="contextTitle">CONTEXTE & OBJECTIF</h3><p id="panel-description"></p></section>
+            <section class="detail-section"><h3 data-i18n="workTitle">TRAVAIL RÉALISÉ</h3><ul class="work-list" id="panel-work"></ul></section>
+            <section class="detail-section"><h3 data-i18n="skillsTitle">TECHNOLOGIES & COMPÉTENCES</h3><div class="tags" id="panel-tags"></div></section>
+            <p class="panel-note" id="panel-note"></p>
+          </div>
+          <section class="gallery" aria-label="Galerie du projet">
+            <div class="gallery__heading"><h3 data-i18n="screensTitle">GALERIE DU PROJET</h3><button class="gallery-icon" id="gallery-open" type="button" aria-label="Afficher la galerie">▧</button></div>
+            <div class="gallery__stage" id="gallery-stage"><div class="gallery-placeholder"><div class="gallery-placeholder__art"><span class="art-node art-node--one"></span><span class="art-node art-node--two"></span><span class="art-node art-node--three"></span><span class="art-lines"></span><span class="art-bars"><i></i><i></i><i></i><i></i><i></i></span></div><strong>CAPTURE À AJOUTER</strong><small>L'aperçu sera remplacé par une capture réelle du projet.</small></div><button class="gallery-arrow gallery-arrow--prev" id="gallery-prev" type="button" aria-label="Capture précédente">‹</button><button class="gallery-arrow gallery-arrow--next" id="gallery-next" type="button" aria-label="Capture suivante">›</button></div>
+            <div class="gallery__footer"><div class="gallery__thumbs" id="gallery-thumbs"></div><span class="gallery__count" id="gallery-count">1 / 3</span></div>
+          </section>
+        </div>
       </div>
-      <div class="player-card__details">
-        <div class="player-card__heading"><p class="eyebrow" id="panel-type">PROJET ACADÉMIQUE</p><h2 id="panel-title">Nom du projet</h2><p id="panel-description"></p></div>
-        <div class="detail-section"><h3 data-i18n="skillsTitle">COMPÉTENCES MOBILISÉES</h3><div class="tags" id="panel-tags"></div></div>
-        <div class="detail-section"><h3 data-i18n="screensTitle">CAPTURES DU PROJET</h3><div class="screenshots" id="panel-screenshots"></div></div>
-        <p class="panel-note" id="panel-note"></p>
-        <div class="card-actions"><a class="project-link" id="panel-link" href="#" target="_blank" rel="noreferrer" hidden data-i18n="openProject">Voir le projet ↗</a><span class="link-placeholder" id="panel-link-placeholder" data-i18n="linkSoon">Lien à ajouter après vérification</span><button class="return-button" id="close-project-bottom" type="button" data-i18n="return">Retour au terrain</button></div>
-      </div>
+      <footer class="project-panel__footer"><span class="project-panel__motto" data-i18n="motto">Plus qu'un projet, une nouvelle façon de voir les données.</span><div class="project-panel__actions"><a class="project-link" id="panel-link" href="#" target="_blank" rel="noreferrer" hidden>⌘ <span data-i18n="openProject">Voir le dépôt GitHub</span> ↗</a><span class="link-placeholder" id="panel-link-placeholder" data-i18n="linkSoon">Lien à ajouter après vérification</span><button class="return-button" id="close-project-bottom" type="button" data-i18n="return">Retour au terrain</button></div></footer>
     </section>
   </div>
 
   <div class="modal-backdrop" id="profile-backdrop" hidden>
     <section class="profile-card" role="dialog" aria-modal="true" aria-labelledby="profile-title">
-      <button class="modal-close" id="close-profile" type="button" aria-label="Close">×</button>
+      <button class="modal-close" id="close-profile" type="button" aria-label="Fermer">×</button>
       <p class="eyebrow" data-i18n="playerCardKicker">CARTE JOUEUR · PROFIL</p>
       <div class="profile-card__header"><div class="profile-avatar">F</div><div><h2 id="profile-title">FAIZAN NORAT</h2><p data-i18n="profileRole">Data & IA · Étudiant ingénieur à l'ESILV</p></div></div>
-      <div class="profile-stats"><div><span>CLUB</span><strong>ESILV</strong></div><div><span>POSTE</span><strong>Data & IA</strong></div><div><span>EXPÉRIENCE</span><strong>RTE · Power BI</strong></div></div>
-      <p class="profile-note" data-i18n="cvNote">La version CV téléchargeable sera ajoutée ici quand le fichier final sera prêt.</p>
+      <p class="profile-intro" data-i18n="coachIntroShort">Je construis mon parcours entre data, outils numériques et compréhension des besoins métiers.</p>
+      <div class="profile-stats"><div><span>FORMATION</span><strong>ESILV · M1 Data & IA</strong></div><div><span>EXPÉRIENCE</span><strong>RTE · Power BI</strong></div><div><span>OBJECTIF</span><strong>Stage · Data / IA</strong></div></div>
+      <p class="profile-note" data-i18n="cvNote">Le CV PDF sera ajouté ici lorsqu'il sera prêt.</p>
       <div class="card-actions"><a class="project-link" href="https://www.linkedin.com/in/faizannorat/" target="_blank" rel="noreferrer" data-i18n="linkedin">Voir mon LinkedIn ↗</a><button class="return-button" id="close-profile-bottom" type="button" data-i18n="return">Retour au terrain</button></div>
     </section>
   </div>
 
-  <footer><span>FAIZAN FC <span class="gold">●</span> DATA & IA</span><span data-i18n="footer">Un portfolio qui se construit projet après projet.</span></footer>
+  <div class="modal-backdrop" id="coach-backdrop" hidden>
+    <section class="coach-panel" role="dialog" aria-modal="true" aria-labelledby="coach-title">
+      <button class="modal-close" id="close-coach" type="button" aria-label="Fermer">×</button>
+      <p class="eyebrow" data-i18n="coachKicker">LE COACH · À PROPOS</p>
+      <div class="coach-panel__header"><div class="coach-panel__avatar">F</div><div><h2 id="coach-title">Faizan Norat</h2><p data-i18n="profileRole">Data & IA · Étudiant ingénieur à l'ESILV</p></div></div>
+      <section><h3 data-i18n="coachJourney">Mon parcours</h3><p data-i18n="coachJourneyText">Ma formation en Data & IA s'appuie sur une expérience chez RTE, où j'ai conçu des tableaux de bord Power BI pour répondre à des besoins métiers.</p></section>
+      <section><h3 data-i18n="coachGoals">Mes objectifs</h3><p data-i18n="coachGoalsText">Explorer davantage l'intelligence artificielle, consolider mes compétences data et contribuer à des projets utiles.</p></section>
+      <section><h3 data-i18n="coachPhilosophy">Ma philosophie</h3><p data-i18n="coachPhilosophyText">Comprendre le besoin, rendre l'information lisible et concevoir des outils réellement utiles à ceux qui les utilisent.</p></section>
+      <div class="card-actions"><a class="project-link" href="https://www.linkedin.com/in/faizannorat/" target="_blank" rel="noreferrer" data-i18n="linkedin">Voir mon LinkedIn ↗</a><button class="return-button" id="close-coach-bottom" type="button" data-i18n="return">Retour au terrain</button></div>
+    </section>
+  </div>
+
+  <div class="modal-backdrop" id="info-backdrop" hidden>
+    <section class="profile-card info-card" role="dialog" aria-modal="true" aria-labelledby="info-title">
+      <button class="modal-close" id="close-info" type="button" aria-label="Fermer">×</button>
+      <p class="eyebrow" data-i18n="clubSheet">FAIZAN FC · FICHE ÉQUIPE</p><h2 id="info-title">Formation</h2><div class="info-card__body" id="info-body"></div>
+      <div class="card-actions"><button class="return-button" id="close-info-bottom" type="button" data-i18n="return">Retour au terrain</button></div>
+    </section>
+  </div>
+  <footer class="page-footer"><span>FAIZAN FC <span class="gold">✦</span> DATA & IA</span><span data-i18n="footer">Un portfolio qui se construit projet après projet.</span><button id="layout-switch" type="button" title="Changer de disposition du banc">Tester le banc horizontal ↔</button></footer>
 </body>
 </html>
