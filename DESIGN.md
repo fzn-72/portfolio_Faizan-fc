@@ -1,52 +1,26 @@
-# Faizan FC — Portfolio Data & IA
+# Faizan FC — Décisions de conception (V6)
 
-## Direction artistique
-- Palette : vert stade `#163D2B`, blanc cassé `#F0EBDD`, or `#D7A84A`.
-- Interface hybride : terrain immersif + fiches de projets soignées inspirées des cartes de joueur de football.
-- Le terrain présente uniquement les projets ; les expériences et la formation ne constituent pas des lignes de joueurs.
-- Le gardien représente Faizan et initie la passe vers le projet sélectionné.
+## Principes
+- Palette : vert stade, ivoire `#F0EBDD`, or `#D7A84A`.
+- L'utilisateur est le coach. Le coach ouvre le panneau de profil (carrière, objectifs, philosophie). Les maillots et le ballon servent à explorer les projets.
+- Le bouton CV télécharge le PDF ; il n'ouvre pas le panneau du coach.
 
-## Parcours principal
-1. L'utilisateur choisit un maillot.
-2. Un ballon de football dessiné en SVG part des pieds du gardien et rejoint le joueur sélectionné.
-3. Une fiche grand format s'ouvre avec description, compétences, zone de captures et lien vers le projet lorsque le lien est confirmé.
-4. L'utilisateur ferme la fiche pour retrouver le terrain.
+## Parcours
+1. Choix d'un maillot sur le terrain.
+2. Le ballon part de la carte du coach, rejoint le maillot, puis la fiche du projet s'ouvre.
+3. « Retour au terrain », la croix ou Échap referment la fiche.
 
-## Navigation secondaire
-- Bouton « Ma fiche joueur (CV) » : ouvre une carte de profil. Le PDF du CV sera relié quand sa version définitive sera choisie.
-- Bouton Contact : ouvre le LinkedIn du portfolio.
-- Bouton FR/EN : change la langue de l'interface. Les descriptions de projets disposent de versions françaises et anglaises provisoires.
+## Codes couleur des maillots
+- Projets ESILV : ivoire et or.
+- Projets réalisés à Dublin : vert foncé et or.
+- Projets à venir : gris foncé, numéro seul (06, 08, 09), fiche réduite à « Projet à venir ».
+- Numéros = postes : 01 gardien, 04 et 05 défenseurs centraux, 06 milieu défensif, 08 relayeur, 09 avant-centre, 10 meneur de jeu.
 
-## Projets actuellement affichés
-- Liv’In Paris — projet académique en groupe.
-- Pictionary Game — projet réalisé à Dublin.
-- Jeu du 21 — projet réalisé à Dublin.
-- Stock Trade Market — projet réalisé à Dublin.
-
-Les descriptions, technologies, numéros de maillot, captures et liens sont provisoires tant que les fichiers des projets n'ont pas été revus. Ne pas inventer de détails et distinguer le travail personnel du travail de groupe.
-
-## Structure des fichiers
-- `index.html` : structure de la page et modales.
-- `css/base.css` : styles globaux et navigation.
-- `css/pitch.css` : terrain, maillots, gardien et animation du ballon.
-- `css/panels.css` : fiche projet et fiche profil.
-- `css/responsive.css` : adaptation mobile/tablette.
-- `js/projects.js` : contenu éditable des projets.
-- `js/main.js` : interactions, animation, fiches et traduction FR/EN.
+## Banc de touche
+Trois contrôles dessinés comme des groupes de trois sièges de stade (dossier, assise, accoudoirs, structure métallique) : Skills, Palmarès, Remplaçants. Sur mobile, les groupes passent en ligne sous le terrain.
 
 ## Prochaines étapes
-1. Tester les interactions et la mise en page sur ordinateur et mobile.
-2. Remplacer les placeholders par des captures authentiques.
-3. Vérifier les descriptions, technologies et contributions individuelles.
-4. Ajouter le vrai PDF de CV et les liens de projets validés.
-5. Créer le dépôt GitHub uniquement après validation locale.
-
-
-## V4
-
-- Navigation secondaire en trois rubriques : Skills, Palmarès, Remplaçants.
-- Coach distinct du gardien/passeur ; le gardien déclenche une passe vers le premier projet.
-- Contact via modal et intégration Formspree à configurer.
-- Maillots ESILV ivoire/or, projets de Dublin verts/or, projet de réserve gris.
-- Emplacement photo temporaire prévu pour le coach.
-- Éléments de stade ajoutés en CSS : projecteurs décoratifs, drapeaux, arcs de surface et filets de but.
+1. Ajouter le CV PDF et la photo du coach.
+2. Compléter les projets (description, technologies, captures, dépôts) à partir des fichiers réels.
+3. Configurer Formspree et faire un envoi de test.
+4. Tester sur les navigateurs et appareils réellement utilisés avant toute mise en ligne.
