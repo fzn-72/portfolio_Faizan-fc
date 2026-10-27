@@ -1,8 +1,11 @@
 const siteConfig = {
   linkedin: "https://www.linkedin.com/in/faizannorat/",
-  cv: "",
+  cv: {
+    fr: "assets/CV-Faizan-Norat-FR.pdf",
+    en: ""
+  },
   coachPhoto: "",
-  formspreeId: "xjyyybew"
+  formspreeId: ""
 };
 
 const projects = [
@@ -102,7 +105,7 @@ const projects = [
 const upcoming = [
   { id: "upcoming-6", number: "06", role: { fr: "Milieu défensif", en: "Defensive midfielder" }, pos: { x: 38, y: 50 }, posV: { x: 50, y: 33 } },
   { id: "upcoming-8", number: "08", role: { fr: "Milieu relayeur", en: "Box-to-box midfielder" }, pos: { x: 50, y: 24 }, posV: { x: 27, y: 46 } },
-  { id: "upcoming-9", number: "09", role: { fr: "Avant-centre", en: "Striker" }, pos: { x: 71, y: 30 }, posV: { x: 50, y: 62 } }
+  { id: "upcoming-9", number: "09", role: { fr: "Avant-centre", en: "Striker" }, pos: { x: 80, y: 50 }, posV: { x: 50, y: 70 } }
 ].map(item => ({ ...item, kit: "grey", reserve: true }));
 
 const skills = [
@@ -133,11 +136,63 @@ const honours = [
 
 const reserve = [
   {
+    id: "reserve-ai-learning-coach",
+    number: "07",
     name: "AI Learning Coach",
-    status: { fr: "En préparation", en: "In preparation" },
-    context: {
-      fr: "Projet UX / IA lié à un travail pour Dassault Systèmes, à intégrer lorsque les captures et la présentation seront prêtes.",
-      en: "A UX / AI project connected with work for Dassault Systèmes, to be added once screenshots and presentation are ready."
-    }
+    kit: "grey",
+    reserve: true,
+    role: { fr: "Projet UX / IA", en: "UX / AI project" },
+    type: { fr: "Projet en réserve", en: "Project on the bench" },
+    description: {
+      fr: "Projet AI Learning Coach associé à un travail avec Dassault Systèmes. La présentation complète sera ajoutée lorsque les captures et les éléments de démonstration seront prêts.",
+      en: "AI Learning Coach project associated with work involving Dassault Systèmes. The full presentation will be added once the screenshots and demo materials are ready."
+    },
+    work: {
+      fr: ["Présentation détaillée en préparation"],
+      en: ["Detailed presentation in preparation"]
+    },
+    technologies: [],
+    note: {
+      fr: "Cette fiche sera complétée avec les livrables et la contribution détaillée.",
+      en: "This card will be completed with deliverables and a detailed contribution summary."
+    },
+    link: "",
+    screenshots: []
+  },
+  {
+    id: "reserve-future-1",
+    number: "12",
+    name: { fr: "Projet à venir", en: "Upcoming project" },
+    kit: "grey",
+    reserve: true,
+    role: { fr: "Place réservée", en: "Reserved spot" },
+    type: { fr: "Projet en réserve", en: "Project on the bench" },
+    description: {
+      fr: "Une place est réservée pour un futur projet. Cette fiche pourra être personnalisée lorsque le projet sera choisi.",
+      en: "A spot is reserved for a future project. This card can be customized once the project has been selected."
+    },
+    work: { fr: ["Contenu à définir"], en: ["Content to be defined"] },
+    technologies: [],
+    note: { fr: "Aucun projet n'est associé à cette place pour le moment.", en: "No project is assigned to this spot yet." },
+    link: "",
+    screenshots: []
+  },
+  {
+    id: "reserve-future-2",
+    number: "15",
+    name: { fr: "Projet à venir", en: "Upcoming project" },
+    kit: "grey",
+    reserve: true,
+    role: { fr: "Place réservée", en: "Reserved spot" },
+    type: { fr: "Projet en réserve", en: "Project on the bench" },
+    description: {
+      fr: "Une seconde place est réservée pour un futur projet. Elle restera en attente jusqu'à ce que son contenu soit prêt à être présenté.",
+      en: "A second spot is reserved for a future project. It will remain on hold until its content is ready to be presented."
+    },
+    work: { fr: ["Contenu à définir"], en: ["Content to be defined"] },
+    technologies: [],
+    note: { fr: "Aucun projet n'est associé à cette place pour le moment.", en: "No project is assigned to this spot yet." },
+    link: "",
+    screenshots: []
   }
 ];

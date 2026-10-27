@@ -3,7 +3,6 @@ const $$ = selector => [...document.querySelectorAll(selector)];
 
 const pitch = $("#pitch");
 const ball = $("#ball");
-const ballOrigin = $("#ball-origin");
 const projectBackdrop = $("#project-backdrop");
 const coachBackdrop = $("#coach-backdrop");
 const infoBackdrop = $("#info-backdrop");
@@ -61,25 +60,31 @@ function renderPlayers() {
   }
 }
 
-function renderBench() {
-  const nav = $("#bench");
-  ["skills", "palmares", "upcoming"].forEach(key => {
-    const button = el("button", "bench-item");
+function renderReserveBench() {
+  const group = $("#reserve-bench");
+  group.innerHTML = benchSvg("reserve");
+  reserve.forEach((item, index) => {
+    const name = typeof item.name === "string" ? item.name : L(item.name);
+    const seat = group.querySelector(`.seat-${index}`);
+    const button = el("button", "bench-seat", item.number);
     button.type = "button";
-    button.innerHTML = `<span class="bench-item__seats" aria-hidden="true">${benchSvg(key)}</span><span class="bench-item__label" data-i18n="${key}"></span>`;
-    button.addEventListener("click", () => {
-      returnFocus = button;
-      renderInfo(key);
-      showModal(infoBackdrop);
-    });
-    nav.append(button);
+    button.style.setProperty("--top", `${(20 + index * 52) / 184 * 100}%`);
+    button.dataset.label = name;
+    button.setAttribute("aria-label", `${t("openReserveProject")} ${name}`);
+    button.addEventListener("click", () => openReserveProject(item, button));
+    ["mouseenter", "focus"].forEach(type => button.addEventListener(type, () => seat.classList.add("is-hot")));
+    ["mouseleave", "blur"].forEach(type => button.addEventListener(type, () => seat.classList.remove("is-hot")));
+    group.append(button);
   });
 }
 
 function getOriginPoint() {
   const pitchRect = pitch.getBoundingClientRect();
-  const anchorRect = ballOrigin.getBoundingClientRect();
-  return { x: anchorRect.left - pitchRect.left, y: anchorRect.top - pitchRect.top };
+  const keeper = $('.player[data-id="jeu21"]').getBoundingClientRect();
+  return {
+    x: keeper.left + keeper.width * .72 - pitchRect.left,
+    y: keeper.bottom - pitchRect.top + 6
+  };
 }
 
 function getTargetBallPoint(target) {
@@ -170,10 +175,28 @@ function openProject(player, button) {
   runPass(button, () => showModal(projectBackdrop));
 }
 
+function openReserveProject(player, button) {
+  currentProject = player;
+  returnFocus = button;
+  $$(".player").forEach(item => item.classList.remove("is-selected"));
+  fillProject(player);
+  showModal(projectBackdrop);
+}
+
 function projectView(player) {
   const subtitle = `${t("jerseyNo")} ${player.number} · ${L(player.role)}`;
   if (player.reserve) {
-    return { type: "", name: t("reserveTitle"), subtitle, description: "", work: [], technologies: [], note: "", link: "", screenshots: [] };
+    return {
+      type: L(player.type || { fr: "Projet en réserve", en: "Project on the bench" }),
+      name: typeof player.name === "string" ? player.name : L(player.name || { fr: t("reserveTitle"), en: t("reserveTitle") }),
+      subtitle: `${t("reserveSeat")} · ${t("jerseyNo")} ${player.number} · ${L(player.role || { fr: "Place réservée", en: "Reserved spot" })}`,
+      description: L(player.description || { fr: "Présentation à venir.", en: "Presentation coming soon." }),
+      work: L(player.work || { fr: ["Contenu à définir"], en: ["Content to be defined"] }),
+      technologies: player.technologies || [],
+      note: L(player.note || { fr: "Contenu en préparation.", en: "Content in preparation." }),
+      link: player.link || "",
+      screenshots: player.screenshots || []
+    };
   }
   return { type: L(player.type), name: player.name, subtitle, description: L(player.description), work: L(player.work), technologies: player.technologies, note: L(player.note), link: player.link, screenshots: player.screenshots };
 }
@@ -181,7 +204,7 @@ function projectView(player) {
 function fillProject(player) {
   const view = projectView(player);
   $("#panel-shirt").innerHTML = jerseySvg(player.kit, `panel-${player.id}`);
-  $("#project-panel").classList.toggle("is-empty", Boolean(player.reserve));
+  $("#project-panel").classList.toggle("is-empty", false);
   $("#panel-type").textContent = view.type.toUpperCase();
   $("#panel-type").hidden = !view.type;
   $("#panel-title").textContent = view.name;
@@ -252,10 +275,11 @@ function renderInfo(which) {
   if (which === "palmares") {
     honours.forEach(honour => body.append(infoRow("IBM", honour.name.replace("IBM — ", ""), L(honour.detail))));
   }
-  if (which === "upcoming") {
-    body.append(el("p", "info-intro", t("upcomingIntro")));
-    reserve.forEach(item => body.append(infoRow(L(item.status), item.name, L(item.context))));
-  }
+}
+
+function currentCvPath() {
+  if (typeof siteConfig.cv === "string") return siteConfig.cv;
+  return siteConfig.cv?.[lang] || "";
 }
 
 function applyConfig() {
@@ -265,13 +289,16 @@ function applyConfig() {
     $$(".avatar").forEach(item => item.classList.add("has-photo"));
   }
   const cv = $("#cv-button");
-  if (siteConfig.cv) {
-    cv.href = siteConfig.cv;
-    cv.setAttribute("download", "");
+  const cvPath = currentCvPath();
+  if (cvPath) {
+    cv.href = cvPath;
+    cv.setAttribute("download", lang === "en" ? "Faizan-Norat-CV-EN.pdf" : "Faizan-Norat-CV-FR.pdf");
     cv.removeAttribute("aria-disabled");
     cv.classList.remove("is-disabled");
     cv.removeAttribute("title");
   } else {
+    cv.href = "#";
+    cv.removeAttribute("download");
     cv.setAttribute("aria-disabled", "true");
     cv.classList.add("is-disabled");
     cv.title = t("cvSoon");
@@ -359,6 +386,7 @@ function setLanguage(language) {
   $("#language-button").innerHTML = language === "fr" ? "FR <span>/</span> EN" : "EN <span>/</span> FR";
   applyConfig();
   renderPlayers();
+  renderReserveBench();
   renderErrors();
   setStatus(statusKey, statusKind);
   if (currentProject && !projectBackdrop.hidden) fillProject(currentProject);
@@ -373,7 +401,7 @@ function openSimple(backdrop, trigger) {
 $("#contact-button").addEventListener("click", event => openSimple(contactBackdrop, event.currentTarget));
 $("#coach-button").addEventListener("click", event => openSimple(coachBackdrop, event.currentTarget));
 $("#cv-button").addEventListener("click", event => {
-  if (!siteConfig.cv) {
+  if (!currentCvPath()) {
     event.preventDefault();
     showToast(t("cvSoon"));
   }
@@ -414,6 +442,16 @@ pitch.prepend(...[pitchSvg(true), pitchSvg(false)].map(markup => {
   holder.innerHTML = markup;
   return holder.firstElementChild;
 }));
-renderBench();
+renderReserveBench();
+$("#skills-button").addEventListener("click", event => {
+  returnFocus = event.currentTarget;
+  renderInfo("skills");
+  showModal(infoBackdrop);
+});
+$("#palmares-button").addEventListener("click", event => {
+  returnFocus = event.currentTarget;
+  renderInfo("palmares");
+  showModal(infoBackdrop);
+});
 setLanguage("fr");
 setBallPoint(getOriginPoint(), 0, .88);

@@ -118,19 +118,23 @@ function benchSvg(uid) {
   const id = "b-" + uid;
   const seat = i => {
     const y = 20 + i * 52;
-    return `<ellipse cx="44" cy="${y + 47}" rx="34" ry="2.5" fill="#000" opacity=".3"/>
+    return `<g class="seat seat-${i}">
+    <defs>
+      <linearGradient id="${id}-seat${i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--seat-hi)"/><stop offset="1" style="stop-color:var(--seat-lo)"/></linearGradient>
+      <linearGradient id="${id}-back${i}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color:var(--seat-lo)"/><stop offset="1" style="stop-color:var(--seat-deep)"/></linearGradient>
+    </defs>
+    <ellipse cx="44" cy="${y + 47}" rx="34" ry="2.5" fill="#000" opacity=".3"/>
     <rect x="13" y="${y}" width="46" height="5" rx="2.5" fill="url(#${id}-metal)"/>
     <rect x="13" y="${y + 40}" width="46" height="5" rx="2.5" fill="url(#${id}-metal)"/>
-    <rect x="12" y="${y + 5}" width="52" height="35" rx="14" fill="url(#${id}-seat)" stroke="#000" stroke-opacity=".4"/>
+    <rect x="12" y="${y + 5}" width="52" height="35" rx="14" fill="url(#${id}-seat${i})" stroke="#000" stroke-opacity=".4"/>
     <path d="M20 ${y + 14}H50" stroke="#fff" stroke-opacity=".28" stroke-width="2.4" stroke-linecap="round"/>
     <path d="M22 ${y + 31}H54" stroke="#000" stroke-opacity=".22" stroke-width="1.6" stroke-linecap="round"/>
-    <rect x="62" y="${y + 1}" width="18" height="43" rx="9" fill="url(#${id}-back)" stroke="#000" stroke-opacity=".45"/>
-    <path d="M67 ${y + 9}V${y + 36}" stroke="#fff" stroke-opacity=".25" stroke-width="2" stroke-linecap="round"/>`;
+    <rect x="62" y="${y + 1}" width="18" height="43" rx="9" fill="url(#${id}-back${i})" stroke="#000" stroke-opacity=".45"/>
+    <path d="M67 ${y + 9}V${y + 36}" stroke="#fff" stroke-opacity=".25" stroke-width="2" stroke-linecap="round"/>
+  </g>`;
   };
   return `<svg class="bench-svg" viewBox="0 0 100 184" aria-hidden="true" focusable="false">
     <defs>
-      <linearGradient id="${id}-seat" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--seat-hi)"/><stop offset="1" style="stop-color:var(--seat-lo)"/></linearGradient>
-      <linearGradient id="${id}-back" x1="0" y1="0" x2="1" y2="0"><stop offset="0" style="stop-color:var(--seat-lo)"/><stop offset="1" style="stop-color:var(--seat-deep)"/></linearGradient>
       <linearGradient id="${id}-metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef1ee"/><stop offset=".5" stop-color="#8f9a92"/><stop offset="1" stop-color="#4a534d"/></linearGradient>
       <linearGradient id="${id}-glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset="1" stop-color="#fff" stop-opacity=".03"/></linearGradient>
     </defs>
