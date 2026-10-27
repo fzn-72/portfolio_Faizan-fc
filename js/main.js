@@ -15,44 +15,47 @@ let ballPoint = null;
 let ballFrame = 0;
 let modalOpenTimer = 0;
 let activeModal = null;
+const contactBackdrop = document.querySelector("#contact-backdrop");
 
 const translations = {
   fr: {
-    playerCard: "Ma fiche joueur (CV)", contact: "Contact", bench: "BANC DE TOUCHE", formation: "Formation", skills: "Compétences",
-    welcome: "BIENVENUE AU STADE", headline: "Mes projets, <em>mon terrain de jeu.</em>",
-    instruction: "Choisis un maillot : le ballon fait la passe et la fiche s'ouvre.", keeper: "GARDIEN · MOI", projectsLabel: "PROJETS SÉLECTIONNÉS",
-    futureLabel: "2 MAILLOTS À VENIR", hint: "Clique sur un maillot pour recevoir la passe.", legend: "Sélectionne un projet pour le découvrir",
+    playerCard: "Ma fiche d’entraîneur (CV)", contact: "Contact", contactTitle: "Envoyer un message", contactIntro: "Pour une opportunité, une question ou un projet à discuter, vous pouvez me contacter ici.", firstName: "Prénom", lastName: "Nom", emailAddress: "Adresse e-mail", messageLabel: "Message", sendMessage: "Envoyer le message ↗", contactSetup: "Le service d'envoi devra être configuré avant la mise en ligne.", bench: "BANC DE TOUCHE", formation: "Formation", skills: "Skills", palmares: "Palmarès", substitutes: "Remplaçants",
+    welcome: "", headline: "Bienvenue au stade, <em>mes projets, mon terrain de jeu.</em>",
+    instruction: "Sélectionnez un maillot : le ballon fait la passe et la fiche du projet s’ouvre.", keeper: "", projectsLabel: "",
+    futureLabel: "", hint: "", legend: "",
     coachRole: "Étudiant en Data & IA", coachQuote: "« Apprendre aujourd'hui, construire demain. »", contextTitle: "CONTEXTE & OBJECTIF", workTitle: "TRAVAIL RÉALISÉ",
-    skillsTitle: "TECHNOLOGIES & COMPÉTENCES", screensTitle: "GALERIE DU PROJET", playerCardKicker: "CARTE JOUEUR · PROFIL",
+    skillsTitle: "TECHNOLOGIES & COMPÉTENCES", screensTitle: "GALERIE DU PROJET", playerCardKicker: "LE COACH · PROFIL",
     profileRole: "Data & IA · Étudiant ingénieur à l'ESILV", coachIntroShort: "Je construis mon parcours entre data, outils numériques et compréhension des besoins métiers.",
-    cvNote: "Le CV PDF sera ajouté ici lorsqu'il sera prêt.", linkedin: "Voir mon LinkedIn ↗", return: "Retour au terrain", footer: "Un portfolio qui se construit projet après projet.",
+    cvNote: "Le CV PDF sera ajouté ici lorsqu'il sera prêt.", linkedin: "Voir mon LinkedIn ↗", return: "Retour au terrain", footer: "Des projets qui avancent, pas seulement des idées.",
     openProject: "Voir le dépôt GitHub", linkSoon: "Lien à ajouter après vérification", motto: "Plus qu'un projet, une nouvelle façon de voir les données.",
-    coachKicker: "LE COACH · À PROPOS", coachJourney: "Mon parcours", coachJourneyText: "Ma formation en Data & IA s'appuie sur deux expériences chez RTE, où j'ai travaillé sur des tableaux de bord Power BI pour répondre à des besoins métiers.",
+    coachKicker: "LE COACH · À PROPOS", coachJourney: "Ma carrière", coachJourneyText: "Ma formation en Data & IA s'appuie sur deux expériences chez RTE, où j'ai travaillé sur des tableaux de bord Power BI pour répondre à des besoins métiers.",
     coachGoals: "Mes objectifs", coachGoalsText: "Explorer davantage l'intelligence artificielle, consolider mes compétences data et trouver un stage à partir d'avril 2027 pour contribuer à des projets concrets.",
     coachPhilosophy: "Ma philosophie", coachPhilosophyText: "Comprendre le besoin, rendre l'information lisible et concevoir des outils utiles à ceux qui les utilisent. Je m'intéresse aussi à l'ergonomie et à la façon dont les personnes interagissent avec les produits numériques.",
     clubSheet: "FAIZAN FC · FICHE ÉQUIPE", future: "À venir", futureTitle: "Projet à venir", futureDescription: "Ce maillot réserve une place à un futur projet. Il sera activé lorsque son contenu sera prêt à être présenté.",
     futureNote: "Cette fiche est volontairement vide : aucun projet fictif n'est ajouté au portfolio.", addScreenshot: "Capture à ajouter", screenshotNote: "L'aperçu ci-dessous est un emplacement de travail. Il sera remplacé par une capture réelle du projet.",
     slide: "Capture", galleryExpand: "Agrandir la galerie", galleryShrink: "Réduire la galerie", benchSwitchToBottom: "Tester le banc horizontal ↔", benchSwitchToLeft: "Remettre le banc à gauche ↔",
-    formationBody: "<p><strong>ESILV — École d'ingénieurs</strong><br>Master 1 · Data & Intelligence Artificielle</p><p class='info-highlight'>Je développe mes compétences à travers les cours, les projets académiques et les expériences en entreprise.</p><p><strong>Expérience professionnelle</strong><br>RTE · réalisation de tableaux de bord Power BI, analyse de besoins métiers et travail sur les indicateurs.</p>",
+    palmaresBody: "<p><strong>IBM — AI Fundamentals</strong><br>AI Fundamentals: Foundations for Understanding AI.</p><p class='info-highlight'><strong>IBM — Data Fundamentals</strong><br>Certification autour des fondamentaux de la donnée.</p><p>Les autres certifications seront ajoutées avec leurs intitulés et dates vérifiés.</p>",
+    substitutesBody: "<p><strong>En réserve : AI Learning Coach</strong><br>Projet UX / IA réalisé dans le cadre d'un travail lié à Dassault Systèmes, à intégrer lorsque les captures et la présentation seront prêtes.</p><p class='info-highlight'>Cette rubrique évoluera avec les projets sélectionnés. Aucun projet fictif ne sera affiché.</p>",
     skillsBody: "<p><strong>Data & visualisation</strong><br>Power BI, DAX, conception de KPI et amélioration de la lisibilité des tableaux de bord.</p><p><strong>Programmation & données</strong><br>C#, Python et SQL/MySQL dans le cadre de projets académiques et de formation.</p><p class='info-highlight'><strong>Ergonomie & conception</strong><br>Intérêt pour l'UX/UI et découverte de Figma : un axe que je souhaite continuer à explorer.</p>"
   },
   en: {
-    playerCard: "My player card (CV)", contact: "Contact", bench: "SUBSTITUTES", formation: "Education", skills: "Skills",
-    welcome: "WELCOME TO THE STADIUM", headline: "My projects, <em>my field of play.</em>",
-    instruction: "Choose a jersey: the ball makes the pass and the project card opens.", keeper: "GOALKEEPER · ME", projectsLabel: "SELECTED PROJECTS",
-    futureLabel: "2 FUTURE JERSEYS", hint: "Click a jersey to receive the pass.", legend: "Select a project to explore it",
+    playerCard: "My coach profile (CV)", contact: "Contact", contactTitle: "Send a message", contactIntro: "For an opportunity, a question or a project to discuss, please contact me here.", firstName: "First name", lastName: "Last name", emailAddress: "Email address", messageLabel: "Message", sendMessage: "Send message ↗", contactSetup: "The email service must be configured before launch.", bench: "SUBSTITUTES", formation: "Education", skills: "Skills", palmares: "Honours", substitutes: "Substitutes",
+    welcome: "", headline: "Welcome to the stadium, <em>my projects, my field of play.</em>",
+    instruction: "Select a jersey: the ball makes the pass and the project card opens.", keeper: "", projectsLabel: "",
+    futureLabel: "", hint: "", legend: "",
     coachRole: "Data & AI student", coachQuote: "“Learn today, build tomorrow.”", contextTitle: "CONTEXT & OBJECTIVE", workTitle: "WORK COMPLETED",
-    skillsTitle: "TECHNOLOGIES & SKILLS", screensTitle: "PROJECT GALLERY", playerCardKicker: "PLAYER CARD · PROFILE",
+    skillsTitle: "TECHNOLOGIES & SKILLS", screensTitle: "PROJECT GALLERY", playerCardKicker: "THE COACH · PROFILE",
     profileRole: "Data & AI · Engineering student at ESILV", coachIntroShort: "I am building my path around data, digital tools and understanding business needs.",
-    cvNote: "The PDF resume will be added here when it is ready.", linkedin: "View my LinkedIn ↗", return: "Back to the pitch", footer: "A portfolio built one project at a time.",
+    cvNote: "The PDF resume will be added here when it is ready.", linkedin: "View my LinkedIn ↗", return: "Back to the pitch", footer: "Projects in motion, not just ideas.",
     openProject: "View GitHub repository", linkSoon: "Link to be added after verification", motto: "More than a project: a new way to see data.",
-    coachKicker: "THE COACH · ABOUT ME", coachJourney: "My journey", coachJourneyText: "My Data & AI degree is complemented by two experiences at RTE, where I worked on Power BI dashboards to meet business needs.",
+    coachKicker: "THE COACH · ABOUT ME", coachJourney: "My career", coachJourneyText: "My Data & AI degree is complemented by two experiences at RTE, where I worked on Power BI dashboards to meet business needs.",
     coachGoals: "My goals", coachGoalsText: "Explore artificial intelligence further, strengthen my data skills and find an internship starting in April 2027 to contribute to practical projects.",
     coachPhilosophy: "My philosophy", coachPhilosophyText: "Understand the need, make information easy to read, and design useful tools for the people who use them. I am also interested in usability and the way people interact with digital products.",
     clubSheet: "FAIZAN FC · TEAM CARD", future: "Coming soon", futureTitle: "Future project", futureDescription: "This jersey reserves a place for a future project. It will be activated once the content is ready to present.",
     futureNote: "This card is intentionally empty: no fictional project is added to the portfolio.", addScreenshot: "Screenshot to add", screenshotNote: "This preview is a placeholder. It will be replaced with a real project screenshot.",
     slide: "Screenshot", galleryExpand: "Expand gallery", galleryShrink: "Reduce gallery", benchSwitchToBottom: "Test horizontal bench ↔", benchSwitchToLeft: "Move bench back to the left ↔",
-    formationBody: "<p><strong>ESILV — Engineering school</strong><br>Master 1 · Data & Artificial Intelligence</p><p class='info-highlight'>I develop my skills through coursework, academic projects and professional experience.</p><p><strong>Professional experience</strong><br>RTE · Power BI dashboards, business needs analysis and KPI reporting.</p>",
+    palmaresBody: "<p><strong>IBM — AI Fundamentals</strong><br>AI Fundamentals: Foundations for Understanding AI.</p><p class='info-highlight'><strong>IBM — Data Fundamentals</strong><br>Certification focused on data fundamentals.</p><p>Other certifications will be added with verified titles and dates.</p>",
+    substitutesBody: "<p><strong>In reserve: AI Learning Coach</strong><br>A UX / AI project developed as part of work connected with Dassault Systèmes, to be added when screenshots and presentation are ready.</p><p class='info-highlight'>This section will evolve as projects are selected. No fictional projects will be displayed.</p>",
     skillsBody: "<p><strong>Data & visualisation</strong><br>Power BI, DAX, KPI design and dashboard readability improvements.</p><p><strong>Programming & data</strong><br>C#, Python and SQL/MySQL through academic projects and coursework.</p><p class='info-highlight'><strong>Usability & design</strong><br>Interest in UX/UI and an introduction to Figma — an area I plan to keep exploring.</p>"
   }
 };
@@ -63,6 +66,7 @@ function escapeHtml(value) {
 
 function createJerseySvg(kit, uniqueId = "kit") {
   const palettes = {
+    grey: { light: "#777b77", mid: "#454a46", dark: "#252a26", trim: "#85877f", ink: "#f0ebdd" },
     cream: { light: "#fff9e9", mid: "#e7dcc4", dark: "#bdb199", trim: "#c5a04c", ink: "#163d2b" },
     gold: { light: "#f6dfa0", mid: "#d4ad51", dark: "#96702c", trim: "#f7e2a1", ink: "#173b29" },
     green: { light: "#356b4b", mid: "#17412c", dark: "#092719", trim: "#d7a84a", ink: "#f0ebdd" }
@@ -77,7 +81,7 @@ function createJerseySvg(kit, uniqueId = "kit") {
 }
 
 function makePrintMarkup(project, isFuture = false) {
-  const name = isFuture ? "PROJET À VENIR" : (project.shirtLabel || project.name).toUpperCase();
+  const name = isFuture ? "REMPLAÇANT" : (project.shirtLabel || project.name).toUpperCase();
   const number = isFuture ? "?" : project.jersey;
   return `<span class="jersey__print"><span class="jersey__name">${escapeHtml(name)}</span><span class="jersey__number">${escapeHtml(number)}</span></span>`;
 }
@@ -97,8 +101,7 @@ function createPlayer(project) {
 }
 
 const futurePlayers = [
-  { id: "future-1", position: { x: 77, y: 59 }, kit: "cream" },
-  { id: "future-2", position: { x: 55, y: 79 }, kit: "green" }
+  { id: "future-1", position: { x: 72, y: 38 }, kit: "grey" }
 ];
 
 function createFuturePlayer(future) {
@@ -127,8 +130,8 @@ function renderPlayers() {
 
 function getKeeperBallPoint() {
   const pitchRect = pitch.getBoundingClientRect();
-  const keeperRect = goalkeeper.getBoundingClientRect();
-  return { x: keeperRect.left + keeperRect.width * .78 - pitchRect.left, y: keeperRect.top + keeperRect.height * .65 - pitchRect.top };
+  const anchorRect = goalkeeper.getBoundingClientRect();
+  return { x: anchorRect.left - pitchRect.left, y: anchorRect.top - pitchRect.top };
 }
 
 function getTargetBallPoint(target) {
@@ -189,7 +192,7 @@ function runPass(target, callback) {
 }
 
 function setActiveModal(backdrop) {
-  [projectBackdrop, profileBackdrop, coachBackdrop, infoBackdrop].forEach(item => { if (item !== backdrop) item.hidden = true; });
+  [projectBackdrop, profileBackdrop, coachBackdrop, infoBackdrop, contactBackdrop].forEach(item => { if (item !== backdrop) item.hidden = true; });
   backdrop.hidden = false;
   document.body.classList.add("modal-open");
   activeModal = backdrop;
@@ -197,7 +200,7 @@ function setActiveModal(backdrop) {
 
 function fillProject(project, isFuture = false) {
   const t = translations[currentLanguage];
-  document.querySelector("#panel-shirt").innerHTML = createJerseySvg(isFuture ? "green" : project.kit, `panel-${isFuture ? "future" : project.id}`);
+  document.querySelector("#panel-shirt").innerHTML = createJerseySvg(isFuture ? "grey" : project.kit, `panel-${isFuture ? "future" : project.id}`);
   document.querySelector("#panel-type").textContent = isFuture ? t.futureTitle.toUpperCase() : project.type.toUpperCase();
   document.querySelector("#panel-title").textContent = isFuture ? t.futureTitle : project.name;
   document.querySelector("#panel-subtitle").textContent = isFuture ? t.future : project.type;
@@ -275,15 +278,23 @@ function closeCoach() {
   if (lastFocusedElement && lastFocusedElement.isConnected) lastFocusedElement.focus();
 }
 
+function openContact() {
+  lastFocusedElement = document.activeElement;
+  setActiveModal(contactBackdrop);
+  document.querySelector("#close-contact").focus();
+}
+function closeContact() {
+  contactBackdrop.hidden = true;
+  document.body.classList.remove("modal-open");
+  activeModal = null;
+  if (lastFocusedElement && lastFocusedElement.isConnected) lastFocusedElement.focus();
+}
 function openInfo(which) {
   const t = translations[currentLanguage];
-  if (which === "formation") {
-    document.querySelector("#info-title").textContent = t.formation;
-    document.querySelector("#info-body").innerHTML = t.formationBody;
-  } else {
-    document.querySelector("#info-title").textContent = t.skills;
-    document.querySelector("#info-body").innerHTML = t.skillsBody;
-  }
+  const titles = { skills: t.skills, palmares: t.palmares, substitutes: t.substitutes };
+  const bodies = { skills: t.skillsBody, palmares: t.palmaresBody, substitutes: t.substitutesBody };
+  document.querySelector("#info-title").textContent = titles[which] || t.skills;
+  document.querySelector("#info-body").innerHTML = bodies[which] || t.skillsBody;
   lastFocusedElement = document.activeElement;
   setActiveModal(infoBackdrop);
   document.querySelector("#close-info").focus();
@@ -352,13 +363,14 @@ function setLanguage(language) {
     else element.textContent = t[key];
   });
   document.querySelector("#language-button").innerHTML = language === "fr" ? "FR <span>/</span> EN" : "EN <span>/</span> FR";
-  document.querySelector("#goalkeeper").setAttribute("aria-label", language === "fr" ? "Gardien : Faizan" : "Goalkeeper: Faizan");
+  
   document.querySelector("#layout-switch").textContent = arena.classList.contains("bench--bottom") ? t.benchSwitchToLeft : t.benchSwitchToBottom;
   renderPlayers();
   if (currentProject && !projectBackdrop.hidden) fillProject(currentProject);
   if (!infoBackdrop.hidden) {
     const active = document.querySelector("#info-title").textContent;
-    openInfo(active === translations[language === "fr" ? "en" : "fr"].formation ? "formation" : "skills");
+    const previous = translations[language === "fr" ? "en" : "fr"];
+    openInfo(active === previous.palmares ? "palmares" : active === previous.substitutes ? "substitutes" : "skills");
   }
 }
 
@@ -380,10 +392,10 @@ const benchFromUrl = new URLSearchParams(window.location.search).get("bench");
 if (benchFromUrl === "bottom") setBenchLayout("bottom");
 else document.querySelector("#layout-switch").textContent = translations.fr.benchSwitchToBottom;
 
-document.querySelector("#profile-button").addEventListener("click", openProfile);
-document.querySelector("#bench-cv").addEventListener("click", openProfile);
+// Le bouton CV est un lien de téléchargement direct. Le widget du coach ouvre le profil.
+document.querySelector("#contact-button").addEventListener("click", openContact);
 document.querySelector("#coach-button").addEventListener("click", openCoach);
-goalkeeper.addEventListener("click", openCoach);
+
 document.querySelectorAll("[data-panel]").forEach(button => button.addEventListener("click", () => openInfo(button.dataset.panel)));
 document.querySelector("#close-project").addEventListener("click", closeProject);
 document.querySelector("#close-project-bottom").addEventListener("click", closeProject);
@@ -396,6 +408,16 @@ document.querySelector("#close-coach-bottom").addEventListener("click", closeCoa
 coachBackdrop.addEventListener("click", event => { if (event.target === coachBackdrop) closeCoach(); });
 document.querySelector("#close-info").addEventListener("click", closeInfo);
 document.querySelector("#close-info-bottom").addEventListener("click", closeInfo);
+document.querySelector("#close-contact").addEventListener("click", closeContact);
+document.querySelector("#close-contact-bottom").addEventListener("click", closeContact);
+contactBackdrop.addEventListener("click", event => { if (event.target === contactBackdrop) closeContact(); });
+document.querySelector("#contact-form").addEventListener("submit", async event => {
+  event.preventDefault();
+  const form = event.currentTarget; const status = document.querySelector("#contact-status"); const submit = document.querySelector("#contact-submit");
+  if (form.action.includes("YOUR_FORM_ID")) { status.textContent = currentLanguage === "fr" ? "Le formulaire est prêt visuellement, mais le service Formspree doit être configuré avant de recevoir les messages." : "The form is ready visually, but Formspree must be configured before messages can be received."; status.classList.add("is-warning"); return; }
+  submit.disabled = true; status.textContent = currentLanguage === "fr" ? "Envoi en cours…" : "Sending…";
+  try { const response = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } }); if (response.ok) { form.reset(); status.textContent = currentLanguage === "fr" ? "Message envoyé, merci !" : "Message sent, thank you!"; status.classList.remove("is-warning"); } else { throw new Error("send failed"); } } catch { status.textContent = currentLanguage === "fr" ? "L'envoi a échoué. Veuillez réessayer plus tard." : "Sending failed. Please try again later."; status.classList.add("is-warning"); } finally { submit.disabled = false; }
+});
 infoBackdrop.addEventListener("click", event => { if (event.target === infoBackdrop) closeInfo(); });
 document.querySelector("#language-button").addEventListener("click", () => setLanguage(currentLanguage === "fr" ? "en" : "fr"));
 document.querySelector("#gallery-prev").addEventListener("click", () => moveGallery(-1));
@@ -415,6 +437,7 @@ document.addEventListener("keydown", event => {
     else if (activeModal === profileBackdrop) closeProfile();
     else if (activeModal === coachBackdrop) closeCoach();
     else if (activeModal === infoBackdrop) closeInfo();
+    else if (activeModal === contactBackdrop) closeContact();
   }
 });
 window.addEventListener("resize", () => {

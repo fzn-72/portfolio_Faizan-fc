@@ -40,3 +40,13 @@ Les descriptions, technologies, numéros de maillot, captures et liens sont prov
 3. Vérifier les descriptions, technologies et contributions individuelles.
 4. Ajouter le vrai PDF de CV et les liens de projets validés.
 5. Créer le dépôt GitHub uniquement après validation locale.
+
+
+## V4
+
+- Navigation secondaire en trois rubriques : Skills, Palmarès, Remplaçants.
+- Coach distinct du gardien/passeur ; le gardien déclenche une passe vers le premier projet.
+- Contact via modal et intégration Formspree à configurer.
+- Maillots ESILV ivoire/or, projets de Dublin verts/or, projet de réserve gris.
+- Emplacement photo temporaire prévu pour le coach.
+- Éléments de stade ajoutés en CSS : projecteurs décoratifs, drapeaux, arcs de surface et filets de but.
