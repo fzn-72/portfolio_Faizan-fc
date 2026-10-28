@@ -15,21 +15,24 @@ const projects = [
     name: "Jeu du 21",
     kit: "green",
     role: { fr: "Gardien", en: "Goalkeeper" },
-    type: { fr: "Projet réalisé à Dublin", en: "Project completed in Dublin" },
+    type: { fr: "Jeu de cartes · application desktop", en: "Card game · desktop application" },
     pos: { x: 8, y: 50 },
     posV: { x: 50, y: 8 },
     description: {
-      fr: "Jeu réalisé à Dublin. Les règles, les fonctionnalités et les choix techniques seront ajoutés après vérification des fichiers du projet.",
-      en: "A game completed in Dublin. The rules, features and technical choices will be added once the project files have been checked."
+      fr: "Un jeu de cartes inspiré du blackjack, où le joueur doit se rapprocher de 21 sans dépasser ce total.",
+      en: "A blackjack-inspired card game where the player aims to get as close to 21 as possible without going over."
     },
-    work: { fr: ["Détails à compléter"], en: ["Details to be completed"] },
-    technologies: [],
+    work: {
+      fr: ["Gestion des manches et des scores du joueur et du donneur", "Actions Hit / Stand et conseil stratégique ponctuel", "Affichage des règles, statistiques et changement de thème"],
+      en: ["Round management and player/dealer scoring", "Hit / Stand actions and a one-use strategy hint", "Rules, statistics and theme switching"]
+    },
+    technologies: ["Python 3", "PyQt6", "UX thinking", "Conception d’interface", "Logique de jeu", "Statistiques"],
     note: {
-      fr: "À compléter : règles, technologies, captures et contribution personnelle.",
-      en: "To complete: rules, technologies, screenshots and individual contribution."
+      fr: "Application desktop développée dans le cadre d’un projet HCI & GUI.",
+      en: "Desktop application developed as part of an HCI & GUI project."
     },
     link: "",
-    screenshots: []
+    screenshots: ["assets/screenshots/jeu21-main.jpg", "assets/screenshots/jeu21-hint.jpg", "assets/screenshots/jeu21-rules.jpg", "assets/screenshots/jeu21-about.jpg"]
   },
   {
     id: "stock",
@@ -59,21 +62,24 @@ const projects = [
     name: "Pictionary Game",
     kit: "green",
     role: { fr: "Défenseur central", en: "Centre-back" },
-    type: { fr: "Projet réalisé à Dublin", en: "Project completed in Dublin" },
+    type: { fr: "Jeu de dessin · deux joueurs", en: "Drawing game · two players" },
     pos: { x: 22, y: 66 },
     posV: { x: 72, y: 20 },
     description: {
-      fr: "Projet réalisé à Dublin. La description détaillée sera ajoutée après vérification des fichiers du projet.",
-      en: "A project completed in Dublin. The detailed description will be added once the project files have been checked."
+      fr: "Un jeu de dessin et de devinettes à deux joueurs : chacun dessine un mot secret à tour de rôle pendant que l’autre essaie de le deviner.",
+      en: "A two-player drawing and guessing game: players take turns drawing a secret word while the other player tries to guess it."
     },
-    work: { fr: ["Détails à compléter"], en: ["Details to be completed"] },
-    technologies: [],
+    work: {
+      fr: ["Gestion des tours, des scores et du chronomètre", "Outils de dessin : couleurs, tailles et styles de pinceau", "Modes de difficulté, indice, joker et sauvegarde du dessin"],
+      en: ["Turn, score and countdown management", "Drawing tools: brush colours, sizes and styles", "Difficulty levels, hints, joker and drawing export"]
+    },
+    technologies: ["Python", "PyQt6", "QPainter", "Interface graphique", "Gestion d’événements", "CSV"],
     note: {
-      fr: "À compléter : technologies, captures et lien du projet.",
-      en: "To complete: technologies, screenshots and project link."
+      fr: "Application développée dans le cadre d’un projet d’interface graphique.",
+      en: "Application developed as part of a graphical user interface project."
     },
     link: "",
-    screenshots: []
+    screenshots: ["assets/screenshots/pictionary-main.jpg", "assets/screenshots/pictionary-drawing.jpg", "assets/screenshots/pictionary-rules.jpg", "assets/screenshots/pictionary-about.jpg"]
   },
   {
     id: "livin",
@@ -97,7 +103,7 @@ const projects = [
       fr: "Les réalisations personnelles seront détaillées après vérification du projet.",
       en: "Individual contributions will be detailed after the project has been reviewed."
     },
-    link: "",
+    link: "https://github.com/fzn-72/Livin-paris",
     screenshots: []
   }
 ];
@@ -111,7 +117,7 @@ const upcoming = [
 const skills = [
   {
     title: { fr: "Data & visualisation", en: "Data & visualisation" },
-    items: ["Power BI", "DAX", "KPI", { fr: "Lisibilité des tableaux de bord", en: "Dashboard readability" }]
+    items: ["Power BI", "DAX", "KPI", { fr: "Analyse & visualisation de données", en: "Data analysis & visualisation" }]
   },
   {
     title: { fr: "Programmation & données", en: "Programming & data" },

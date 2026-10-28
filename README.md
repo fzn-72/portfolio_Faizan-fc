@@ -8,6 +8,13 @@ Portfolio interactif en HTML, CSS, SVG et JavaScript, sans framework ni outil de
 2. Ouvrir `faizan-fc/index.html` dans un navigateur récent.
 3. Si vous souhaitez tester le formulaire depuis un serveur local, ouvrir un terminal dans le dossier `faizan-fc` puis lancer `python -m http.server 8000`, et visiter `http://localhost:8000`.
 
+## Mise à jour du contenu (V10 bis enrichie)
+
+- Ajout de captures réelles et de descriptions pour le Jeu du 21 et Pictionary Game.
+- Mise à jour des technologies et compétences présentées dans les fiches de projets.
+- Remplacement de la compétence de tableau de bord par « Analyse & visualisation de données ».
+- Ralentissement de l’animation d’ouverture de l’armoire à trophées.
+
 ## Nouveautés de la V9
 
 - Les deux défenseurs centraux retrouvent exactement les positions qu'ils avaient dans la V8.
