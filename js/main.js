@@ -43,8 +43,9 @@ function createPlayer(player) {
   button.style.setProperty("--yv", `${port.top}%`);
   button.dataset.id = player.id;
   button.dataset.kit = player.kit;
-  button.setAttribute("aria-label", `${t("discover")} ${player.reserve ? t("reserveTitle") : player.name}`);
-  button.dataset.label = player.reserve ? t("reserveTitle") : player.name;
+  const playerName = typeof player.name === "string" ? player.name : L(player.name);
+  button.setAttribute("aria-label", `${t("discover")} ${player.reserve ? t("reserveTitle") : playerName}`);
+  button.dataset.label = player.reserve ? t("reserveTitle") : playerName;
   button.innerHTML = `<span class="jersey" aria-hidden="true">${jerseySvg(player.kit, player.id)}<span class="jersey__print"><span class="jersey__name">${t("shirtName")}</span><span class="jersey__number">${player.number}</span></span></span>`;
   button.addEventListener("click", () => openProject(player, button));
   return button;
@@ -198,7 +199,7 @@ function projectView(player) {
       screenshots: player.screenshots || []
     };
   }
-  return { type: L(player.type), name: player.name, subtitle, description: L(player.description), work: L(player.work), technologies: player.technologies, note: L(player.note), link: player.link, screenshots: player.screenshots };
+  return { type: L(player.type), name: typeof player.name === "string" ? player.name : L(player.name), subtitle, description: L(player.description), work: L(player.work), technologies: player.technologies.map(L), note: L(player.note), link: player.link, screenshots: player.screenshots };
 }
 
 function fillProject(player) {

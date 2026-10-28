@@ -12,7 +12,7 @@ const projects = [
   {
     id: "jeu21",
     number: "01",
-    name: "Jeu du 21",
+    name: { fr: "Jeu du 21", en: "Game of 21" },
     kit: "green",
     role: { fr: "Gardien", en: "Goalkeeper" },
     type: { fr: "Jeu de cartes · application desktop", en: "Card game · desktop application" },
@@ -26,7 +26,7 @@ const projects = [
       fr: ["Gestion des manches et des scores du joueur et du donneur", "Actions Hit / Stand et conseil stratégique ponctuel", "Affichage des règles, statistiques et changement de thème"],
       en: ["Round management and player/dealer scoring", "Hit / Stand actions and a one-use strategy hint", "Rules, statistics and theme switching"]
     },
-    technologies: ["Python 3", "PyQt6", "UX thinking", "Conception d’interface", "Logique de jeu", "Statistiques"],
+    technologies: ["Python 3", "PyQt6", "UX thinking", { fr: "Conception d’interface", en: "Interface design" }, { fr: "Logique de jeu", en: "Game logic" }],
     note: {
       fr: "Application desktop développée dans le cadre d’un projet HCI & GUI.",
       en: "Desktop application developed as part of an HCI & GUI project."
@@ -39,29 +39,32 @@ const projects = [
     number: "04",
     name: "Stock Trade Market",
     kit: "green",
-    role: { fr: "Défenseur central", en: "Centre-back" },
-    type: { fr: "Projet réalisé à Dublin", en: "Project completed in Dublin" },
+    role: { fr: "Défenseur central", en: "Center" },
+    type: { fr: "Application desktop · analyse boursière", en: "Desktop application · stock analysis" },
     pos: { x: 22, y: 34 },
     posV: { x: 28, y: 20 },
     description: {
-      fr: "Projet lié au marché boursier, réalisé à Dublin. Les fonctionnalités, les données et les choix techniques seront précisés après vérification du projet.",
-      en: "A stock-market project completed in Dublin. Features, data and technical choices will be specified once the project has been checked."
+      fr: "Application desktop développée à Dublin avec PyQt6 pour estimer le profit ou la perte d’une transaction à partir du cours d’achat et du cours de vente d’une action, des dates choisies et de la quantité. Une seconde vue permet de comparer plusieurs actifs.",
+      en: "A desktop application developed in Dublin with PyQt6 to estimate a trade’s profit or loss from a stock’s purchase and selling prices, selected dates and quantity. A second view allows users to compare multiple assets."
     },
-    work: { fr: ["Détails à compléter"], en: ["Details to be completed"] },
-    technologies: [],
+    work: {
+      fr: ["Calcul du total d’achat, du total de vente et du profit/perte selon les dates sélectionnées", "Comparaison de plusieurs actions dans un tableau, avec valeurs positives en vert et négatives en rouge", "Chargement et traitement des cours depuis un fichier CSV"],
+      en: ["Calculate purchase total, selling total and profit/loss based on the selected dates", "Compare multiple stocks in a table, with positive values in green and negative values in red", "Load and process stock prices from a CSV file"]
+    },
+    technologies: ["Python", "PyQt6", "CSV", { fr: "Interface graphique", en: "Graphical user interface" }, { fr: "Traitement de données", en: "Data processing" }],
     note: {
-      fr: "À compléter : fonctionnalités, données, technologies et lien du projet.",
-      en: "To complete: features, data, technologies and project link."
+      fr: "Projet académique réalisé dans le cadre du cours HCI & GUI Programming à Griffith College Dublin.",
+      en: "Academic project developed as part of the HCI & GUI Programming course at Griffith College Dublin."
     },
     link: "",
-    screenshots: ["assets/stock-trade-calculator.png"]
+    screenshots: ["assets/screenshots/stock-calculator-main.jpg", "assets/screenshots/stock-calculator-comparison.jpg"]
   },
   {
     id: "pictionary",
     number: "05",
     name: "Pictionary Game",
     kit: "green",
-    role: { fr: "Défenseur central", en: "Centre-back" },
+    role: { fr: "Défenseur central", en: "Center" },
     type: { fr: "Jeu de dessin · deux joueurs", en: "Drawing game · two players" },
     pos: { x: 22, y: 66 },
     posV: { x: 72, y: 20 },
@@ -73,7 +76,7 @@ const projects = [
       fr: ["Gestion des tours, des scores et du chronomètre", "Outils de dessin : couleurs, tailles et styles de pinceau", "Modes de difficulté, indice, joker et sauvegarde du dessin"],
       en: ["Turn, score and countdown management", "Drawing tools: brush colours, sizes and styles", "Difficulty levels, hints, joker and drawing export"]
     },
-    technologies: ["Python", "PyQt6", "QPainter", "Interface graphique", "Gestion d’événements", "CSV"],
+    technologies: ["Python", "PyQt6", "QPainter", { fr: "Interface graphique", en: "Graphical user interface" }],
     note: {
       fr: "Application développée dans le cadre d’un projet d’interface graphique.",
       en: "Application developed as part of a graphical user interface project."
@@ -91,20 +94,20 @@ const projects = [
     pos: { x: 38, y: 50 },
     posV: { x: 50, y: 34 },
     description: {
-      fr: "Projet de groupe réalisé à l'ESILV. La problématique et les fonctionnalités détaillées seront présentées après relecture du dépôt et des livrables.",
-      en: "A group project carried out at ESILV. The problem statement and detailed features will be presented once the repository and deliverables have been reviewed."
+      fr: "Application console réalisée en groupe à l’ESILV pour gérer une plateforme de partage de repas entre voisins. Les clients peuvent consulter des plats et passer commande, tandis que les cuisiniers gèrent leurs offres. Le projet combine base de données relationnelle et algorithmes de graphes, notamment pour explorer les trajets dans le métro parisien.",
+      en: "A group-built console application developed at ESILV for a neighbourhood meal-sharing platform. Customers can browse dishes and place orders, while cooks manage their offers. The project combines a relational database with graph algorithms, including experiments with route planning on the Paris Metro network."
     },
     work: {
-      fr: ["Algorithmes de graphes", "Gestion de base de données", "Analyse statistique"],
-      en: ["Graph algorithms", "Database management", "Statistical analysis"]
+      fr: ["Gestion des profils et des rôles client, cuisinier et administrateur", "Consultation des plats, création et suivi des commandes", "Connexion à MySQL et export de données en JSON/XML", "Modélisation de graphes et calcul de plus courts chemins dans le réseau du métro parisien", "Visualisation et analyse des relations entre clients et cuisiniers"],
+      en: ["Manage customer, cook and administrator profiles and workflows", "Browse dishes and create and track orders", "Connect to MySQL and export data to JSON/XML", "Model graphs and calculate shortest paths across the Paris Metro network", "Visualise and analyse customer–cook relationships"]
     },
-    technologies: ["C#", "MySQL", "Algorithmes de graphes", "Statistiques"],
+    technologies: ["C#", ".NET Framework", "MySQL", "JSON / XML", { fr: "Algorithmes de graphes", en: "Graph algorithms" }, { fr: "Plus courts chemins", en: "Shortest-path algorithms" }],
     note: {
-      fr: "Les réalisations personnelles seront détaillées après vérification du projet.",
-      en: "Individual contributions will be detailed after the project has been reviewed."
+      fr: "Projet académique en équipe. La fiche présente les fonctionnalités du projet collectif ; elle ne prétend pas attribuer chaque module à une contribution individuelle.",
+      en: "Academic team project. This card describes the group project’s features and does not claim that every module was an individual contribution."
     },
     link: "https://github.com/fzn-72/Livin-paris",
-    screenshots: []
+    screenshots: ["assets/screenshots/livin-main-menu.jpg", "assets/screenshots/livin-dishes.jpg", "assets/screenshots/livin-statistics.jpg", "assets/screenshots/livin-feedback.jpg", "assets/screenshots/livin-customer-cook-graph.jpg", "assets/screenshots/livin-metro-route.jpg"]
   }
 ];
 
@@ -121,7 +124,7 @@ const skills = [
   },
   {
     title: { fr: "Programmation & données", en: "Programming & data" },
-    items: ["C#", "Python", "SQL / MySQL"]
+    items: ["C#", "Python", "SQL / MySQL", "Git / GitHub"]
   },
   {
     title: { fr: "Ergonomie & conception", en: "Usability & design" },
