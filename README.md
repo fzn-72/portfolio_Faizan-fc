@@ -1,79 +1,52 @@
-# Faizan FC — Portfolio Data & IA (V8)
+# Faizan FC — Portfolio Data & IA (V9)
 
-Portfolio en HTML / CSS / SVG / JavaScript, sans framework ni outil de build. Il fonctionne en local.
+Portfolio interactif en HTML, CSS, SVG et JavaScript, sans framework ni outil de build. Le projet est conçu pour être lancé en local et n'est pas publié.
 
 ## Ouvrir le site
 
 1. Décompresser l'archive.
 2. Ouvrir `faizan-fc/index.html` dans un navigateur récent.
-3. Pour tester le formulaire localement si nécessaire, exécuter `python -m http.server 8000` dans le dossier `faizan-fc`, puis ouvrir `http://localhost:8000`.
+3. Si vous souhaitez tester le formulaire depuis un serveur local, ouvrir un terminal dans le dossier `faizan-fc` puis lancer `python -m http.server 8000`, et visiter `http://localhost:8000`.
 
-## Nouveautés de la V7
+## Nouveautés de la V9
 
-- Le tableau tactique ouvre les compétences (`Skills`).
-- L'armoire à trophées ouvre les certifications (`Palmarès`).
-- Le banc est déplacé sous le terrain, aligné à droite, avec trois remplaçants : AI Learning Coach et deux places pour de futurs projets.
-- Les maillots/projets déjà présents sur le terrain sont conservés pour le moment.
-- La vignette du coach est placée dans le coin supérieur droit et utilise un Liquid Glass plus clair.
-- Le titre affiche « Bienvenue au stade. Mes projets, mon terrain de jeu. ».
-- Le CV français fourni a été intégré dans `assets/CV-Faizan-Norat-FR.pdf`.
-- Le bouton de CV choisit le PDF selon la langue. Le CV anglais sera activé dès que son PDF sera ajouté.
-- Le formulaire conserve sa logique de validation et d'envoi Formspree.
+- Les deux défenseurs centraux retrouvent exactement les positions qu'ils avaient dans la V8.
+- Le tableau tactique ouvre un mini-terrain avec trois postes sélectionnables. Chaque poste révèle les compétences associées sous forme de tags, plutôt qu'une liste simple.
+- L'armoire à trophées s'ouvre avec une animation et présente les deux certifications IBM sous forme de médailles sur deux étagères.
+- Les deux expériences sont compatibles avec les textes français et anglais et restent utilisables au clavier.
+- Le reste du site, le formulaire de contact et les animations de projets restent basés sur la V8 bis.
 
-## CV français et anglais
+## CV et photo du coach
 
-Le CV français est disponible à `assets/CV-Faizan-Norat-FR.pdf`.
+Le CV français se trouve dans `assets/CV-Faizan-Norat-FR.pdf`. Le bouton de CV utilise le fichier correspondant à la langue sélectionnée ; le bouton reste désactivé en anglais tant que le PDF anglais n'est pas ajouté.
 
-Quand le CV anglais sera fourni, le déposer dans `assets/CV-Faizan-Norat-EN.pdf` et renseigner `cv.en` dans `js/projects.js` :
+La photo du coach se trouve dans `assets/coach-faizan.png`. Le chemin de la photo et les chemins des CV sont configurés dans `js/projects.js`.
 
-```js
-cv: {
-  fr: "assets/CV-Faizan-Norat-FR.pdf",
-  en: "assets/CV-Faizan-Norat-EN.pdf"
-}
-```
+## Formulaire de contact
 
-Pour le moment, le bouton est désactivé en anglais afin d'éviter un lien cassé.
+Le formulaire utilise Formspree. L'identifiant du formulaire se trouve dans `siteConfig.formspreeId`, dans `js/projects.js`. Il est configuré dans cette version. Il reste conseillé d'effectuer un test de réception après toute modification du formulaire ou déploiement.
 
-## Photo du coach
+## Projets et modifications futures
 
-Déposer la photo choisie dans `assets/` puis renseigner `coachPhoto` dans `js/projects.js`, par exemple :
+Les données modifiables sont dans `js/projects.js` : nom, numéro, description FR/EN, rôle, position sur le terrain, technologies, lien GitHub et captures. Les URL, contributions et captures qui n'ont pas été fournies restent volontairement vides ; aucune information n'est inventée.
 
-```js
-coachPhoto: "assets/faizan-photo.jpg"
-```
-
-## Formulaire de contact (Formspree)
-
-Le code utilise `siteConfig.formspreeId` dans `js/projects.js`. **L'archive V6 reçue pour cette modification ne contenait pas l'identifiant Formspree** (la valeur était vide). Pour retrouver le fonctionnement testé dans votre copie locale, recopier ici l'identifiant du formulaire Formspree qui a déjà envoyé le message de test :
-
-```js
-formspreeId: "VOTRE_IDENTIFIANT_FORMspree"
-```
-
-Ne pas partager l'identifiant publiquement si vous ne souhaitez pas le rendre visible ; notez toutefois qu'un endpoint de formulaire placé dans le JavaScript du navigateur est nécessairement visible aux visiteurs. Après avoir configuré cette valeur, envoyer un nouveau test et confirmer la réception.
-
-## Projets
-
-Les données modifiables sont dans `js/projects.js` : titre, description FR/EN, travail, technologies, position sur le terrain, lien GitHub et captures. Les liens et captures non fournis restent volontairement vides ; aucune URL ou réalisation personnelle n'est inventée.
-
-## Structure
+## Structure du projet
 
 - `index.html` : structure de l'interface et modales.
-- `css/base.css` : variables, en-tête et éléments généraux.
-- `css/pitch.css` : terrain, maillots, coach, rail latéral et banc des remplaçants.
-- `css/panels.css` : fiche projet et galerie.
-- `css/cards.css` : panneau Liquid Glass, panneau Skills/Palmarès et formulaire.
-- `css/responsive.css` : affichage tablette/mobile.
+- `css/base.css` : en-tête et éléments généraux.
+- `css/pitch.css` : terrain, maillots, coach, tableau latéral et banc.
+- `css/panels.css` : fiches projet et galerie.
+- `css/cards.css` : panneaux du coach, tableau tactique, armoire à trophées et formulaire.
+- `css/responsive.css` : affichage tablette et mobile.
 - `js/projects.js` : configuration et données des projets.
 - `js/i18n.js` : textes français/anglais.
-- `js/drawings.js` : SVG du terrain, des maillots, sièges, tableau tactique et armoire.
-- `js/main.js` : interactions, passe, modales, formulaire et choix de CV.
+- `js/drawings.js` : dessins SVG du terrain, des maillots et des sièges.
+- `js/main.js` : interactions, passe, modales, formulaire et téléchargement du CV.
 
-Le site n'est ni publié ni versionné sur GitHub.
+## Historique rapide
 
-## Notes V8
+- **V7 :** intégration du CV français, de la photo du coach et réorganisation du banc sous le terrain.
+- **V8 bis :** correction du dessin de l'armoire, repositionnement des attaquants/ailiers et mise à jour des numéros.
+- **V9 :** mini-terrain tactique interactif pour les skills et animation d'ouverture de la vitrine à certifications.
 
-- Banc des remplaçants : le banc de la V6 est placé à droite du terrain. Chaque siège correspond à une entrée de `reserve` dans `js/projects.js` (numéro, nom, fiche).
-- Le ballon part des pieds du gardien (maillot 01) et non plus de la carte du coach.
-- La carte du coach est une notification en liquid glass, à cheval sur le bord droit du terrain.
+Le projet n'est ni publié ni déployé automatiquement depuis ce dossier.

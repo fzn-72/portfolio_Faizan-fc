@@ -56,6 +56,20 @@
   .coach__role { display: none; }
   .contact-fields { grid-template-columns: 1fr; }
   .info-row { grid-template-columns: 1fr; gap: .3rem; }
+  .tactics-board { min-height: 190px; }
+  .tactics-marker__number { width: 38px; font-size: 1rem; }
+  .tactics-marker__label { width: 88px; padding: .25rem .3rem; font-size: .58rem; }
+  .tactics-detail { padding: .85rem; }
+  .trophy-cabinet { height: 255px; }
+  .trophy-cabinet__back { border-width: 7px; }
+  .trophy-shelf { left: 6%; right: 6%; }
+  .medal-display { gap: .55rem; width: 95%; padding: .3rem .4rem; }
+  .medal-display__icon { flex-basis: 46px; width: 46px; height: 58px; }
+  .medal-disc { left: 3px; width: 39px; height: 39px; }
+  .medal-ribbon--left { left: 10px; }
+  .medal-ribbon--right { right: 10px; }
+  .medal-display__title { font-size: .83rem; }
+  .medal-display__detail { font-size: .65rem; }
   .glass-panel { border-radius: 22px; padding: 1.3rem 1.05rem; }
   .glass-panel__avatar { flex-basis: 70px; width: 70px; }
   .card { padding: 1.4rem 1.05rem; }

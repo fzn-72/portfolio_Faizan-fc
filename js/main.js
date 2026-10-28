@@ -264,17 +264,86 @@ function infoRow(label, title, text) {
   return row;
 }
 
+function updateTacticsDetails(index, panel, markers) {
+  const group = skills[index];
+  markers.forEach((marker, markerIndex) => {
+    const active = markerIndex === index;
+    marker.classList.toggle("is-active", active);
+    marker.setAttribute("aria-pressed", String(active));
+  });
+  panel.replaceChildren();
+  panel.append(el("p", "tactics-detail__eyebrow", t("selectedSector")));
+  panel.append(el("h3", "tactics-detail__title", L(group.title)));
+  const chips = el("div", "skill-chips");
+  group.items.forEach(item => chips.append(el("span", "skill-chip", L(item))));
+  panel.append(chips);
+}
+
+function renderTacticsBoard(body) {
+  body.append(el("p", "info-intro", t("tacticsIntro")));
+  const board = el("div", "coach-board");
+  board.setAttribute("role", "group");
+  board.setAttribute("aria-label", t("tacticsBoardLabel"));
+  board.innerHTML = `<div class="coach-board__top"><span class="coach-board__clip"></span><span>${t("tacticsBoardHeading")}</span><span class="coach-board__status">${t("coachBoardStatus")}</span></div><div class="coach-board__surface"><svg class="coach-board__drawing" viewBox="0 0 760 300" aria-hidden="true"><path d="M30 55Q150 25 245 75T430 78T720 50M30 245Q170 205 280 240T500 220T720 250"/><path d="M55 145Q180 120 275 145T470 142T705 145" stroke-dasharray="7 8"/><path d="M185 105l48 30-6-20m6 20-21 3M480 180l52-34-7 20m7-20-21 1"/></svg><div class="coach-board__magnet coach-board__magnet--one"><b>06</b><small>DATA</small></div><div class="coach-board__magnet coach-board__magnet--two"><b>08</b><small>CODE</small></div><div class="coach-board__magnet coach-board__magnet--three"><b>10</b><small>UX/UI</small></div><span class="coach-board__eraser"></span><span class="coach-board__marker"></span></div><div class="coach-board__footer"><span>FAIZAN FC · STAFF TECHNIQUE</span><span>${t("tapMagnets")}</span></div>`;
+  const markers = [...board.querySelectorAll(".coach-board__magnet")];
+  const detail = el("section", "tactics-detail");
+  detail.setAttribute("aria-live", "polite");
+  skills.forEach((group, index) => {
+    const marker = markers[index];
+    marker.type = "button";
+    marker.setAttribute("aria-label", `${t("selectSkillArea")}: ${L(group.title)}`);
+    marker.setAttribute("aria-pressed", "false");
+    marker.addEventListener("click", () => updateTacticsDetails(index, detail, markers));
+  });
+  body.append(board, detail);
+  updateTacticsDetails(0, detail, markers);
+}
+function renderTrophyCabinet(body) {
+  body.append(el("p", "info-intro", t("trophyIntro")));
+  const scene = el("div", "trophy-scene");
+  scene.setAttribute("role", "group");
+  scene.setAttribute("aria-label", t("trophyCabinetLabel"));
+  const cabinet = el("div", "trophy-cabinet");
+  const back = el("div", "trophy-cabinet__back");
+  cabinet.append(back);
+
+  [honours.slice(0, 2), honours.slice(2, 4)].forEach((shelfHonours, index) => {
+    const shelf = el("div", `trophy-shelf trophy-shelf--${index === 0 ? "upper" : "lower"}`);
+    shelf.append(el("span", "trophy-shelf__label", t(index === 0 ? "trophyShelfOne" : "trophyShelfTwo")));
+    const medals = el("div", "trophy-shelf__medals");
+    shelfHonours.forEach(honour => {
+      const medal = el("article", "medal-display");
+      const icon = el("span", "medal-display__icon");
+      icon.setAttribute("aria-hidden", "true");
+      icon.innerHTML = `<span class="medal-ribbon medal-ribbon--left"></span><span class="medal-ribbon medal-ribbon--right"></span><span class="medal-disc"><svg viewBox="0 0 24 24"><path d="m12 2.7 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z" fill="currentColor" stroke="#7a531b" stroke-width=".7" stroke-linejoin="round"/></svg></span>`;
+      const copy = el("span", "medal-display__copy");
+      copy.append(el("strong", "medal-display__title", honour.name));
+      copy.append(el("small", "medal-display__date", L(honour.date)));
+      copy.append(el("small", "medal-display__detail", L(honour.detail)));
+      medal.append(icon, copy);
+      medals.append(medal);
+    });
+    shelf.append(medals);
+    cabinet.append(shelf);
+  });
+
+  const door = el("div", "trophy-cabinet__door");
+  door.setAttribute("aria-hidden", "true");
+  door.append(el("span", "trophy-cabinet__door-handle"));
+  cabinet.append(door);
+  scene.append(cabinet);
+  body.append(scene);
+}
 function renderInfo(which) {
+  const card = $("#info-card");
+  const keepCabinetOpen = currentInfo === which && !infoBackdrop.hidden && card.classList.contains("is-open") && which === "palmares";
   currentInfo = which;
+  card.className = `card info-card info-card--${which}${keepCabinetOpen ? " is-open" : ""}`;
   $("#info-title").textContent = t(which);
   const body = $("#info-body");
   body.replaceChildren();
-  if (which === "skills") {
-    skills.forEach(group => body.append(infoRow(L(group.title), "", group.items.map(L).join(", ") + ".")));
-  }
-  if (which === "palmares") {
-    honours.forEach(honour => body.append(infoRow("IBM", honour.name.replace("IBM — ", ""), L(honour.detail))));
-  }
+  if (which === "skills") renderTacticsBoard(body);
+  if (which === "palmares") renderTrophyCabinet(body);
 }
 
 function currentCvPath() {
@@ -452,6 +521,7 @@ $("#palmares-button").addEventListener("click", event => {
   returnFocus = event.currentTarget;
   renderInfo("palmares");
   showModal(infoBackdrop);
+  requestAnimationFrame(() => $("#info-card").classList.add("is-open"));
 });
 setLanguage("fr");
 setBallPoint(getOriginPoint(), 0, .88);

@@ -4,8 +4,8 @@ const siteConfig = {
     fr: "assets/CV-Faizan-Norat-FR.pdf",
     en: ""
   },
-  coachPhoto: "",
-  formspreeId: ""
+  coachPhoto: "assets/coach-faizan.png",
+  formspreeId: "xjyyybew"
 };
 
 const projects = [
@@ -77,13 +77,13 @@ const projects = [
   },
   {
     id: "livin",
-    number: "10",
+    number: "06",
     name: "Liv’In Paris",
     kit: "cream",
-    role: { fr: "Meneur de jeu", en: "Playmaker" },
+    role: { fr: "Milieu défensif", en: "Defensive midfielder" },
     type: { fr: "Projet académique · en groupe", en: "Academic project · group work" },
-    pos: { x: 57, y: 50 },
-    posV: { x: 73, y: 50 },
+    pos: { x: 38, y: 50 },
+    posV: { x: 50, y: 34 },
     description: {
       fr: "Projet de groupe réalisé à l'ESILV. La problématique et les fonctionnalités détaillées seront présentées après relecture du dépôt et des livrables.",
       en: "A group project carried out at ESILV. The problem statement and detailed features will be presented once the repository and deliverables have been reviewed."
@@ -103,9 +103,9 @@ const projects = [
 ];
 
 const upcoming = [
-  { id: "upcoming-6", number: "06", role: { fr: "Milieu défensif", en: "Defensive midfielder" }, pos: { x: 38, y: 50 }, posV: { x: 50, y: 33 } },
-  { id: "upcoming-8", number: "08", role: { fr: "Milieu relayeur", en: "Box-to-box midfielder" }, pos: { x: 50, y: 24 }, posV: { x: 27, y: 46 } },
-  { id: "upcoming-9", number: "09", role: { fr: "Avant-centre", en: "Striker" }, pos: { x: 80, y: 50 }, posV: { x: 50, y: 70 } }
+  { id: "upcoming-9", number: "09", role: { fr: "Attaquant de pointe", en: "Striker" }, pos: { x: 84, y: 50 }, posV: { x: 50, y: 78 } },
+  { id: "upcoming-11", number: "11", role: { fr: "Ailier gauche", en: "Left winger" }, pos: { x: 72, y: 24 }, posV: { x: 27, y: 64 } },
+  { id: "upcoming-7", number: "07", role: { fr: "Ailier droit", en: "Right winger" }, pos: { x: 72, y: 76 }, posV: { x: 73, y: 64 } }
 ].map(item => ({ ...item, kit: "grey", reserve: true }));
 
 const skills = [
@@ -126,18 +126,30 @@ const skills = [
 const honours = [
   {
     name: "IBM — AI Fundamentals",
+    date: { fr: "Octobre 2026", en: "October 2026" },
     detail: { fr: "AI Fundamentals: Foundations for Understanding AI", en: "AI Fundamentals: Foundations for Understanding AI" }
   },
   {
     name: "IBM — Data Fundamentals",
-    detail: { fr: "Certification autour des fondamentaux de la donnée", en: "Certification focused on data fundamentals" }
+    date: { fr: "Octobre 2026", en: "October 2026" },
+    detail: { fr: "Fondamentaux de la donnée", en: "Data fundamentals" }
+  },
+  {
+    name: "TOEFL ITP — B2+",
+    date: { fr: "Mars 2025 · 597/677", en: "March 2025 · 597/677" },
+    detail: { fr: "Certification d’anglais", en: "English-language certification" }
+  },
+  {
+    name: "Unity Essentials",
+    date: { fr: "Septembre 2026", en: "September 2026" },
+    detail: { fr: "Parcours d’initiation à l’environnement Unity", en: "Introduction to the Unity environment" }
   }
 ];
 
 const reserve = [
   {
     id: "reserve-ai-learning-coach",
-    number: "07",
+    number: "12",
     name: "AI Learning Coach",
     kit: "grey",
     reserve: true,
@@ -161,7 +173,7 @@ const reserve = [
   },
   {
     id: "reserve-future-1",
-    number: "12",
+    number: "13",
     name: { fr: "Projet à venir", en: "Upcoming project" },
     kit: "grey",
     reserve: true,
