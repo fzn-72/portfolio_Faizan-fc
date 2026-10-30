@@ -113,10 +113,10 @@ const projects = [
   }
   ,{
     id: "airbnb",
-    number: "03",
+    number: "02",
     name: "Airbnb Price Prediction",
     kit: "cream",
-    role: { fr: "Milieu offensif", en: "Attacking midfielder" },
+    role: { fr: "Défenseur droit", en: "Right back" },
     type: { fr: "Machine learning · projet en binôme", en: "Machine learning · pair project" },
     pos: { x: 17, y: 90 }, posV: { x: 84, y: 20 },
     description: {
@@ -134,10 +134,10 @@ const projects = [
   },
   {
     id: "alterdune",
-    number: "02",
+    number: "03",
     name: "Alterdune",
     kit: "cream",
-    role: { fr: "Défenseur droit", en: "Right back" },
+    role: { fr: "Défenseur gauche", en: "Left back" },
     type: { fr: "Jeu vidéo C++ · projet en binôme", en: "C++ video game · pair project" },
     pos: { x: 17, y: 10 }, posV: { x: 16, y: 20 },
     description: {
