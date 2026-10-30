@@ -22,6 +22,7 @@
   .feature-object__label { font-size: 1rem; }
   .feature-object__hint { font-size: .64rem; }
   .stage { --bench-h: 150px; order: 3; flex-direction: column; gap: 2.2rem; width: min(100%, 520px); margin-inline: auto; }
+  .pitch-wrap { width:100%; }
   .pitch { aspect-ratio: 748 / 1146; width: 100%; }
   .pitch__svg--h { display: none; }
   .pitch__svg--v { display: block; }
@@ -101,3 +102,5 @@
 @media (prefers-reduced-motion: reduce) {
   .player, .coach, .bench-item__seats { transition: none !important; }
 }
+
+@media (max-width: 760px) { .pitch-legend { gap:.3rem .7rem; margin:.25rem auto .5rem; font-size:.58rem; } .pitch-legend__shirt { width:25px; height:23px; flex-basis:25px; } }

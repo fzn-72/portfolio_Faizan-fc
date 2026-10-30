@@ -86,17 +86,18 @@ function pitchSvg(vertical) {
 const kitPalettes = {
   cream: { light: "#fbf6e8", mid: "#ebe2cb", dark: "#c4b794", trim: "#b8923f", collar: "#163d2b", inner: "#8c8068" },
   green: { light: "#2d6a46", mid: "#1a4a32", dark: "#0d2c1c", trim: "#cfa24a", collar: "#cfa24a", inner: "#06170f" },
-  grey: { light: "#7d827b", mid: "#4f554f", dark: "#2c312d", trim: "#8e9088", collar: "#9a9c94", inner: "#1b1f1c" }
+  grey: { light: "#858d83", mid: "#626a61", dark: "#3d453d", trim: "#9ba397", collar: "#9ba397", inner: "#2d352e" }
 };
 
 function jerseySvg(kit, uid) {
   const p = kitPalettes[kit] || kitPalettes.cream;
   const id = "j-" + String(uid).replace(/[^a-z0-9]/gi, "");
   const body = "M58 12C48 15 36 20 26 27L5 58Q3 62 8 64L35 76C34 98 38 120 36 138Q80 146 124 138C122 120 126 98 125 76L152 64Q157 62 155 58L134 27C124 20 112 15 102 12Q80 36 58 12Z";
+  const sideHighlight = kit === "grey" ? ".025" : ".07";
   return `<svg viewBox="0 0 160 150" aria-hidden="true" focusable="false">
     <defs>
       <linearGradient id="${id}-fabric" x1="0" y1="0" x2=".3" y2="1"><stop offset="0" stop-color="${p.light}"/><stop offset=".55" stop-color="${p.mid}"/><stop offset="1" stop-color="${p.dark}"/></linearGradient>
-      <linearGradient id="${id}-side" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".2"/><stop offset=".25" stop-color="#fff" stop-opacity=".07"/><stop offset=".75" stop-color="#000" stop-opacity=".02"/><stop offset="1" stop-color="#000" stop-opacity=".24"/></linearGradient>
+      <linearGradient id="${id}-side" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".2"/><stop offset=".25" stop-color="#fff" stop-opacity="${sideHighlight}"/><stop offset=".75" stop-color="#000" stop-opacity=".02"/><stop offset="1" stop-color="#000" stop-opacity=".24"/></linearGradient>
       <clipPath id="${id}-clip"><path d="${body}"/></clipPath>
     </defs>
     <path d="${body}" fill="url(#${id}-fabric)"/>

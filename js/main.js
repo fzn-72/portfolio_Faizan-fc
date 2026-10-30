@@ -43,12 +43,19 @@ function createPlayer(player) {
   button.style.setProperty("--yv", `${port.top}%`);
   button.dataset.id = player.id;
   button.dataset.kit = player.kit;
-  const playerName = typeof player.name === "string" ? player.name : L(player.name);
+  const playerName = player.reserve ? t("reserveTitle") : (typeof player.name === "string" ? player.name : L(player.name));
   button.setAttribute("aria-label", `${t("discover")} ${player.reserve ? t("reserveTitle") : playerName}`);
   button.dataset.label = player.reserve ? t("reserveTitle") : playerName;
   button.innerHTML = `<span class="jersey" aria-hidden="true">${jerseySvg(player.kit, player.id)}<span class="jersey__print"><span class="jersey__name">${t("shirtName")}</span><span class="jersey__number">${player.number}</span></span></span>`;
   button.addEventListener("click", () => openProject(player, button));
   return button;
+}
+
+function renderPitchLegend() {
+  document.querySelectorAll("[data-legend-kit]").forEach(node => {
+    const kit = node.dataset.legendKit;
+    node.innerHTML = jerseySvg(kit, `legend-${kit}`);
+  });
 }
 
 function renderPlayers() {
@@ -64,12 +71,14 @@ function renderPlayers() {
 function renderReserveBench() {
   const group = $("#reserve-bench");
   group.innerHTML = benchSvg("reserve");
-  reserve.forEach((item, index) => {
+  [...reserve].sort((a, b) => Number(a.number) - Number(b.number)).forEach((item, index) => {
     const name = typeof item.name === "string" ? item.name : L(item.name);
     const seat = group.querySelector(`.seat-${index}`);
-    const button = el("button", "bench-seat", item.number);
+    const button = el("button", "bench-seat");
     button.type = "button";
+    button.dataset.kit = item.kit || "grey";
     button.style.setProperty("--top", `${(20 + index * 52) / 184 * 100}%`);
+    button.innerHTML = `<span class="bench-seat__jersey" aria-hidden="true">${jerseySvg(item.kit || "grey", `bench-${item.id}`)}<span class="bench-seat__print"><span class="bench-seat__name">${t("shirtName")}</span><span class="bench-seat__number">${item.number}</span></span></span>`;
     button.dataset.label = name;
     button.setAttribute("aria-label", `${t("openReserveProject")} ${name}`);
     button.addEventListener("click", () => openReserveProject(item, button));
@@ -285,7 +294,7 @@ function renderTacticsBoard(body) {
   const board = el("div", "coach-board");
   board.setAttribute("role", "group");
   board.setAttribute("aria-label", t("tacticsBoardLabel"));
-  board.innerHTML = `<div class="coach-board__top"><span class="coach-board__clip"></span><span>${t("tacticsBoardHeading")}</span><span class="coach-board__status">${t("coachBoardStatus")}</span></div><div class="coach-board__surface"><svg class="coach-board__drawing" viewBox="0 0 760 300" aria-hidden="true"><g class="coach-board__pitch-lines"><path d="M38 24 Q38 22 41 23 L719 24 Q722 24 722 27 L721 273 Q721 276 718 276 L40 275 Q37 275 38 272 Z"/><path d="M380 24 Q378 90 380 150 Q382 216 380 275"/><path d="M380 104 C405 104 425 124 425 150 C425 176 405 196 380 196 C355 196 335 176 335 150 C335 124 355 104 380 104 Z"/><path d="M38 72 Q88 71 143 73 L143 227 Q88 229 38 227"/><path d="M38 112 Q62 111 89 112 L89 188 Q62 189 38 188"/><path d="M143 111 Q177 150 143 189"/><path d="M722 72 Q672 71 617 73 L617 227 Q672 229 722 227"/><path d="M722 112 Q698 111 671 112 L671 188 Q698 189 722 188"/><path d="M617 111 Q583 150 617 189"/><path d="M128 150 C130 147 134 147 136 150 C134 153 130 153 128 150 Z"/><path d="M624 150 C626 147 630 147 632 150 C630 153 626 153 624 150 Z"/><path d="M29 132 Q22 132 22 139 L22 161 Q22 168 29 168"/><path d="M731 132 Q738 132 738 139 L738 161 Q738 168 731 168"/></g></svg><span class="coach-board__ghost-magnet coach-board__ghost-magnet--one" aria-hidden="true"></span><span class="coach-board__ghost-magnet coach-board__ghost-magnet--two" aria-hidden="true"></span><span class="coach-board__ghost-magnet coach-board__ghost-magnet--three" aria-hidden="true"></span><span class="coach-board__ghost-magnet coach-board__ghost-magnet--four" aria-hidden="true"></span><span class="coach-board__ghost-magnet coach-board__ghost-magnet--five" aria-hidden="true"></span><span class="coach-board__ghost-magnet coach-board__ghost-magnet--six" aria-hidden="true"></span><button class="coach-board__magnet coach-board__magnet--one"><b>06</b><small>DATA</small></button><button class="coach-board__magnet coach-board__magnet--two"><b>08</b><small>CODE</small></button><button class="coach-board__magnet coach-board__magnet--three"><b>10</b><small>CONCEPTION</small></button><button class="coach-board__magnet coach-board__magnet--four"><b>11</b><small>3D</small></button><span class="coach-board__eraser" aria-hidden="true"></span><span class="coach-board__marker" aria-hidden="true"></span></div><div class="coach-board__footer"><span>FAIZAN FC · STAFF TECHNIQUE</span><span>${t("tapMagnets")}</span></div>`;
+  board.innerHTML = `<div class="coach-board__top"><span class="coach-board__clip"></span><span>${t("tacticsBoardHeading")}</span><span class="coach-board__status">${t("coachBoardStatus")}</span></div><div class="coach-board__surface"><svg class="coach-board__drawing" viewBox="0 0 760 300" aria-hidden="true"><g class="coach-board__pitch-lines"><path d="M38 24 Q38 22 41 23 L719 24 Q722 24 722 27 L721 273 Q721 276 718 276 L40 275 Q37 275 38 272 Z"/><path d="M380 24 Q378 90 380 150 Q382 216 380 275"/><path d="M380 104 C405 104 425 124 425 150 C425 176 405 196 380 196 C355 196 335 176 335 150 C335 124 355 104 380 104 Z"/><path d="M38 72 Q88 71 143 73 L143 227 Q88 229 38 227"/><path d="M38 112 Q62 111 89 112 L89 188 Q62 189 38 188"/><path d="M143 111 Q177 150 143 189"/><path d="M722 72 Q672 71 617 73 L617 227 Q672 229 722 227"/><path d="M722 112 Q698 111 671 112 L671 188 Q698 189 722 188"/><path d="M617 111 Q583 150 617 189"/><path d="M128 150 C130 147 134 147 136 150 C134 153 130 153 128 150 Z"/><path d="M624 150 C626 147 630 147 632 150 C630 153 626 153 624 150 Z"/><path d="M29 132 Q22 132 22 139 L22 161 Q22 168 29 168"/><path d="M731 132 Q738 132 738 139 L738 161 Q738 168 731 168"/></g></svg><span class="coach-board__ghost-magnet coach-board__ghost-magnet--one" aria-hidden="true"></span><span class="coach-board__ghost-magnet coach-board__ghost-magnet--two" aria-hidden="true"></span><span class="coach-board__ghost-magnet coach-board__ghost-magnet--three" aria-hidden="true"></span><span class="coach-board__ghost-magnet coach-board__ghost-magnet--four" aria-hidden="true"></span><span class="coach-board__ghost-magnet coach-board__ghost-magnet--five" aria-hidden="true"></span><span class="coach-board__ghost-magnet coach-board__ghost-magnet--six" aria-hidden="true"></span><button class="coach-board__magnet coach-board__magnet--one"><b>06</b><small>DATA</small></button><button class="coach-board__magnet coach-board__magnet--two"><b>08</b><small>CODE</small></button><button class="coach-board__magnet coach-board__magnet--three"><b>10</b><small>CRÉATIVITÉ</small></button><button class="coach-board__magnet coach-board__magnet--four"><b>12</b><small>3D</small></button><span class="coach-board__eraser" aria-hidden="true"></span><span class="coach-board__marker" aria-hidden="true"></span></div><div class="coach-board__footer"><span>FAIZAN FC · STAFF TECHNIQUE</span><span>${t("tapMagnets")}</span></div>`;
   const markers = [...board.querySelectorAll(".coach-board__magnet")];
   const detail = el("section", "tactics-detail");
   detail.setAttribute("aria-live", "polite");
@@ -380,6 +389,7 @@ function openLightbox() {
   $("#lightbox-image").src = image.src;
   $("#lightbox-image").alt = image.alt;
   $("#lightbox").hidden = false;
+  $("#lightbox").scrollTop = 0;
 }
 
 function closeLightbox() {
@@ -479,6 +489,7 @@ $("#cv-button").addEventListener("click", event => {
 $("#language-button").addEventListener("click", () => setLanguage(lang === "fr" ? "en" : "fr"));
 $("#gallery-zoom").addEventListener("click", openLightbox);
 $("#lightbox").addEventListener("click", closeLightbox);
+$("#lightbox-image").addEventListener("click", event => event.stopPropagation());
 $("#gallery-prev").addEventListener("click", () => moveGallery(-1));
 $("#gallery-next").addEventListener("click", () => moveGallery(1));
 form.addEventListener("submit", submitForm);
@@ -513,6 +524,7 @@ pitch.prepend(...[pitchSvg(true), pitchSvg(false)].map(markup => {
   return holder.firstElementChild;
 }));
 renderReserveBench();
+renderPitchLegend();
 $("#skills-button").addEventListener("click", event => {
   returnFocus = event.currentTarget;
   renderInfo("skills");

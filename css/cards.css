@@ -232,8 +232,8 @@
 .coach-board__magnet small { font-size:.42rem; font-weight:800; letter-spacing:.06em; }
 .coach-board__magnet--one { left:32%; top:62%; }
 .coach-board__magnet--two { left:50%; top:41%; transform:translate(-50%,-50%) rotate(4deg); }
-.coach-board__magnet--three { left:68%; top:62%; transform:translate(-50%,-50%) rotate(-2deg); }
-.coach-board__magnet--four { left:50%; top:78%; transform:translate(-50%,-50%) rotate(2deg); }
+.coach-board__magnet--three { left:68%; top:62%; width:clamp(48px,6.3vw,62px); transform:translate(-50%,-50%) rotate(-2deg); }
+.coach-board__magnet--four { left:86%; top:41%; transform:translate(-50%,-50%) rotate(3deg); }
 .coach-board__magnet:hover,.coach-board__magnet:focus-visible,.coach-board__magnet.is-active { z-index:3; transform:translate(-50%,-50%) scale(1.1) rotate(0); box-shadow:0 0 0 5px rgba(215,168,74,.24),0 7px 15px rgba(22,37,25,.3); outline:2px solid #345744; outline-offset:4px; }
 .coach-board__ghost-magnet { position:absolute; z-index:1; width:clamp(20px,2.7vw,28px); aspect-ratio:1; border-radius:50%; border:1px solid rgba(69,92,75,.7); background:radial-gradient(circle at 30% 25%,#fff,#d6ded7 55%,#8f9e92); box-shadow:0 2px 4px rgba(22,37,25,.22),inset 0 0 0 2px rgba(255,255,255,.65); }
 .coach-board__ghost-magnet--one { left:16%; top:31%; }
@@ -275,3 +275,6 @@
 /* The modal is named "palmares" in the UI state. */
 .info-card--palmares.is-open .trophy-cabinet__door { animation: trophy-door-open 1.8s cubic-bezier(.18, .72, .28, 1) both; }
 @media (prefers-reduced-motion: reduce) { .info-card--palmares.is-open .trophy-cabinet__door { animation: none; transform: rotateY(-86deg); } }
+
+/* Keep the longer Creativity label legible inside its magnet. */
+.coach-board__magnet--three small { font-size: clamp(.34rem, .58vw, .43rem); letter-spacing: .025em; white-space: nowrap; }

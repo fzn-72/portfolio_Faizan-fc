@@ -187,7 +187,8 @@
   font-family: var(--display);
 }
 
-.player--grey, .player[data-kit="green"], .player[data-kit="grey"] { --ink-print: #f0ebdd; }
+.player[data-kit="green"] { --ink-print: #f0ebdd; }
+.player[data-kit="grey"] { --ink-print: #c7cec3; }
 .player[data-kit="cream"] { --ink-print: #163d2b; }
 
 .jersey__name { font-size: calc(var(--w) * .1); font-weight: 600; letter-spacing: .08em; line-height: 1; }
@@ -248,3 +249,25 @@
 
 /* V10 — frame the coach portrait slightly higher in compact avatars */
 .avatar img { object-position: center 22%; }
+
+.pitch-legend { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:.35rem 1.15rem; width:100%; margin:.35rem auto 0; color:#c4d0c3; font-size:.64rem; letter-spacing:.015em; }
+.pitch-legend__item { display:inline-flex; align-items:center; gap:.38rem; white-space:nowrap; }
+.pitch-legend__shirt { display:inline-grid; place-items:center; width:29px; height:27px; flex:0 0 29px; }
+.pitch-legend__shirt svg { display:block; width:100%; height:100%; overflow:visible; filter:drop-shadow(0 2px 2px rgba(0,0,0,.25)); }
+.pitch-legend__dots { color:#d6b65e; font-size:.78rem; letter-spacing:.08em; }
+
+.pitch-wrap { flex:0 0 auto; width:min(calc(100% - var(--dugout-w) - 1.2rem),calc((100svh - 130px) * 1.532)); min-width:0; }
+.pitch-wrap .pitch { width:100%; }
+
+
+/* Use the same project-shirt artwork on the substitute bench. */
+.bench-seat__jersey { position:relative; display:block; width:clamp(42px, 7.2svh, 58px); aspect-ratio:160 / 150; filter:drop-shadow(0 3px 3px rgba(0,0,0,.38)); }
+.bench-seat__jersey svg { display:block; width:100%; height:100%; overflow:visible; }
+.bench-seat__print { position:absolute; left:50%; top:27%; width:58%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; color:#c7cec3; text-align:center; pointer-events:none; font-family:var(--display); }
+.bench-seat[data-kit="cream"] .bench-seat__print { color:#163d2b; }
+.bench-seat__name { font-size:.27rem; font-weight:700; letter-spacing:.06em; line-height:1; }
+.bench-seat__number { font-size:clamp(.78rem, 1.1svh, .92rem); font-weight:800; line-height:1; font-variant-numeric:tabular-nums; }
+
+/* Upcoming projects remain visible on the pitch as grey reserve shirts. */
+.player--reserve { display:block !important; visibility:visible !important; opacity:1 !important; z-index:3; filter: drop-shadow(0 0 1px rgba(235, 239, 230, .16)); }
+.player--reserve .jersey { display:block; visibility:visible; filter: drop-shadow(0 7px 6px rgba(0,0,0,.48)) drop-shadow(0 0 1px rgba(220,225,216,.14)); }

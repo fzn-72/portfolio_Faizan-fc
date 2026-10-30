@@ -118,7 +118,7 @@ const projects = [
     kit: "cream",
     role: { fr: "Milieu offensif", en: "Attacking midfielder" },
     type: { fr: "Machine learning · projet en binôme", en: "Machine learning · pair project" },
-    pos: { x: 22, y: 84 }, posV: { x: 84, y: 20 },
+    pos: { x: 17, y: 90 }, posV: { x: 84, y: 20 },
     description: {
       fr: "Projet de machine learning réalisé en binôme pour prédire le prix de logements Airbnb à partir de caractéristiques des annonces. Le travail comprend une exploration des données, leur préparation et la comparaison de modèles de régression.",
       en: "Pair project using machine learning to predict Airbnb listing prices from listing features. The work includes exploratory data analysis, preprocessing and a comparison of regression models."
@@ -139,7 +139,7 @@ const projects = [
     kit: "cream",
     role: { fr: "Défenseur droit", en: "Right back" },
     type: { fr: "Jeu vidéo C++ · projet en binôme", en: "C++ video game · pair project" },
-    pos: { x: 22, y: 16 }, posV: { x: 16, y: 20 },
+    pos: { x: 17, y: 10 }, posV: { x: 16, y: 20 },
     description: {
       fr: "Jeu de rôle en console inspiré de la mythologie grecque, développé en binôme en C++. Le joueur progresse dans des combats au tour par tour, gère son inventaire et affronte différents ennemis, jusqu’aux mini-boss et boss.",
       en: "Greek mythology-inspired console RPG developed in a pair using C++. Players progress through turn-based combat, manage an inventory and face different enemies, including mini-bosses and bosses."
@@ -172,7 +172,7 @@ const skills = [
   },
   {
     title: { fr: "Conception & créativité", en: "Design & creativity" },
-    items: ["Conception", "UX / UI", "Canva", { fr: "Figma (notions)", en: "Figma (basic knowledge)" }]
+    items: ["UX / UI", "Canva", { fr: "Figma (notions)", en: "Figma (basic knowledge)" }]
   },
   {
     title: { fr: "3D", en: "3D" },
@@ -206,7 +206,7 @@ const honours = [
 const reserve = [
   {
     id: "reserve-ai-learning-coach",
-    number: "12",
+    number: "10",
     name: "AI Learning Coach",
     kit: "grey",
     reserve: true,
@@ -230,9 +230,9 @@ const reserve = [
   },
   {
     id: "reserve-unity-game",
-    number: "13",
+    number: "08",
     name: { fr: "Jeu Unity", en: "Unity game" },
-    kit: "grey",
+    kit: "cream",
     reserve: true,
     role: { fr: "Place réservée", en: "Reserved spot" },
     type: { fr: "Projet en réserve", en: "Project on the bench" },
@@ -248,7 +248,7 @@ const reserve = [
   },
   {
     id: "reserve-future-2",
-    number: "14",
+    number: "12",
     name: { fr: "Projet à venir", en: "Upcoming project" },
     kit: "grey",
     reserve: true,

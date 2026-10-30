@@ -1,4 +1,4 @@
-# Faizan FC — Portfolio Data & IA (V12 bis)
+# Faizan FC — Portfolio Data & IA (V14)
 
 Portfolio interactif en HTML, CSS, SVG et JavaScript, sans framework ni outil de build. Le projet est conçu pour être lancé en local et n'est pas publié.
 
