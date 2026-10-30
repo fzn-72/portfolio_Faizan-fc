@@ -4,7 +4,7 @@ const siteConfig = {
     fr: "assets/Faizan_s_Resume FR.pdf",
     en: "assets/Faizan_s_Resume EN.pdf"
   },
-  coachPhoto: "",
+  coachPhoto: "assets/Avatar_Faizan.png",
   formspreeId: "xjyyybew"
 };
 
