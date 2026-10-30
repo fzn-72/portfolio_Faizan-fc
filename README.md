@@ -7,7 +7,7 @@
 [![CSS](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)](https://developer.mozilla.org/fr/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/fr/docs/Web/JavaScript)
 
-🔗 **Accéder au portfolio :** https://fzn-72.github.io/portfolio_Faizan-fc/
+🔗 **Accéder au portfolio :** https://fznorat.github.io/portfolio_Faizan-fc/
 
 ---
 
@@ -51,7 +51,7 @@ Le projet peut être exécuté directement dans un navigateur ou depuis un serve
 ### 1. Récupérer le projet
 
 ```bash
-git clone https://github.com/fzn-72/portfolio_Faizan-fc.git
+git clone https://github.com/fznorat/portfolio_Faizan-fc.git
 ```
 
 ### 2. Accéder au dossier
@@ -167,7 +167,7 @@ Voici les principales étapes de l'évolution du projet :
 
 Le portfolio est hébergé avec **GitHub Pages** et accessible publiquement à l'adresse :
 
-https://fzn-72.github.io/portfolio_Faizan-fc/
+https://fznorat.github.io/portfolio_Faizan-fc/
 
 Le déploiement est réalisé depuis la branche `main`, à la racine du dépôt.
 
@@ -215,7 +215,7 @@ No JavaScript framework, build dependencies or compilation process are required.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/fzn-72/portfolio_Faizan-fc.git
+git clone https://github.com/fznorat/portfolio_Faizan-fc.git
 ```
 
 ### 2. Navigate to the project folder
@@ -305,7 +305,7 @@ The portfolio has been developed through several iterations. The following miles
 
 The portfolio is hosted using **GitHub Pages** and is publicly available at:
 
-https://fzn-72.github.io/portfolio_Faizan-fc/
+https://fznorat.github.io/portfolio_Faizan-fc/
 
 Deployment is configured from the `main` branch, using the repository root directory.
 
