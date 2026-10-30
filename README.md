@@ -1,4 +1,4 @@
-# Faizan FC — Portfolio Data & IA (V9)
+# Faizan FC — Portfolio Data & IA (V12 bis)
 
 Portfolio interactif en HTML, CSS, SVG et JavaScript, sans framework ni outil de build. Le projet est conçu pour être lancé en local et n'est pas publié.
 
@@ -8,7 +8,7 @@ Portfolio interactif en HTML, CSS, SVG et JavaScript, sans framework ni outil de
 2. Ouvrir `faizan-fc/index.html` dans un navigateur récent.
 3. Si vous souhaitez tester le formulaire depuis un serveur local, ouvrir un terminal dans le dossier `faizan-fc` puis lancer `python -m http.server 8000`, et visiter `http://localhost:8000`.
 
-## Mise à jour du contenu (V10 bis enrichie)
+## Mise à jour du contenu (V12 bis)
 
 - Ajout de captures réelles et de descriptions pour le Jeu du 21 et Pictionary Game.
 - Mise à jour des technologies et compétences présentées dans les fiches de projets.
@@ -25,9 +25,9 @@ Portfolio interactif en HTML, CSS, SVG et JavaScript, sans framework ni outil de
 
 ## CV et photo du coach
 
-Le CV français se trouve dans `assets/CV-Faizan-Norat-FR.pdf`. Le bouton de CV utilise le fichier correspondant à la langue sélectionnée ; le bouton reste désactivé en anglais tant que le PDF anglais n'est pas ajouté.
+Les CV français et anglais se trouvent dans `assets/CV-Faizan-Norat-FR.pdf` et `assets/CV-Faizan-Norat-EN.pdf`. Le bouton de téléchargement utilise automatiquement la version correspondant à la langue sélectionnée.
 
-La photo du coach se trouve dans `assets/coach-faizan.png`. Le chemin de la photo et les chemins des CV sont configurés dans `js/projects.js`.
+La photo du coach est intégrée directement sous forme de data URI dans `js/projects.js` : aucun fichier portrait séparé n’est nécessaire dans `assets/`. Cette intégration ne rend toutefois pas l’image privée, puisqu’elle reste incluse dans le code public du site.
 
 ## Formulaire de contact
 
