@@ -1,8 +1,8 @@
 const siteConfig = {
   linkedin: "https://www.linkedin.com/in/faizannorat/",
   cv: {
-    fr: "assets/CV-Faizan-Norat-FR.pdf",
-    en: "assets/CV-Faizan-Norat-EN.pdf"
+    fr: "assets/Faizan_s_Resume FR.pdf",
+    en: "assets/Faizan_s_Resume EN.pdf"
   },
   coachPhoto: "",
   formspreeId: "xjyyybew"
